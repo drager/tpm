@@ -2,7 +2,7 @@
 
 const fetcher = {
   fetch(url) {
-    if (url === undefined) {
+    if (url === undefined || typeof url !== 'string') {
       throw new Error('The string to be parsed needs to be a string!');
     }
   }
