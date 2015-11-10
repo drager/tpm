@@ -8,5 +8,10 @@ describe('parser', () => {
       const stringToParse = 'typings: ';
       expect(parser.parse(stringToParse)).to.be.an('object');
     });
+
+    it('should return an object with the typings key', () => {
+      const stringToParse = 'typings: ';
+      expect(parser.parse(stringToParse)).to.have.property('typings');
+    });
   });
 });
