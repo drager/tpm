@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "coverage": "babel-node node_modules/isparta/bin/isparta cover _mocha -- test/ --recursive",
-    "test": "mocha test/ --recursive --watch",
-    "test-once": "mocha test/ --recursive"
+    "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- test/ --recursive",
+    "test": "node_modules/mocha/bin/_mocha test/ --recursive --watch",
+    "test-once": "node_modules/mocha/bin/_mocha test/ --recursive"
   },
   "keywords": [
     "TSD",
@@ -26,5 +26,8 @@
     "mocha": "^2.3.3",
     "sinon": "^1.17.2",
     "sinon-chai": "^2.8.0"
+  },
+  "dependencies": {
+    "js-yaml": "^3.4.3"
   }
 }
