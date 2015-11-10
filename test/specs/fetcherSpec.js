@@ -19,7 +19,7 @@ describe('fetcher', () => {
       const urlToFetch = '';
       expect(() => {
           fetcher.fetch(urlToFetch);
-        }).to.throw(Error);
+        }).to.throw('The url to be fetched needs to be a string!');
     });
   });
 });
