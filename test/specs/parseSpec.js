@@ -8,5 +8,10 @@ describe('parser', () => {
       const stringToParse = 'typings: ';
       expect(parser.parse(stringToParse)).to.eql({typings: ''});
     });
+
+    it('should throw if the passed string is undefiend', () => {
+      const stringToParse = 'typings:';
+      expect(parser.parse()).to.throw(Error);
+    });
   });
 });
