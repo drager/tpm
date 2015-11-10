@@ -15,16 +15,14 @@ describe('parser', () => {
 
     it('should throw if the passed parameter is not a string', () => {
       const parameter = 1;
-      expect(
-        function () {
+      expect(() => {
           parser.parse(parameter);
         }).to.throw('The string to be parsed needs to be a string!');
     });
 
     it('should throw if the passed parameter is an empty string', () => {
       const stringToParse = '';
-      expect(
-        function () {
+      expect(() => {
           parser.parse(stringToParse);
         }).to.throw(Error);
     });
