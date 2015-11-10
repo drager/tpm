@@ -18,7 +18,7 @@ describe('parser', () => {
       expect(
         function () {
           parser.parse(parameter);
-        }).to.throw(Error);
+        }).to.throw('The string to be parsed needs to be a string!');
     });
   });
 });
