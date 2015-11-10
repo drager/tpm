@@ -6,12 +6,7 @@ describe('parser', () => {
   describe('parse', () => {
     it('should return an object', () => {
       const stringToParse = 'typings: ';
-      expect(parser.parse(stringToParse)).to.be.an('object');
-    });
-
-    it('should return an object with the typings key', () => {
-      const stringToParse = 'typings: ';
-      expect(parser.parse(stringToParse)).to.have.property('typings');
+      expect(parser.parse(stringToParse)).to.eql({typings: ''});
     });
   });
 });
