@@ -1,4 +1,6 @@
-yaml = require('js-yaml');
+"use strict";
+
+const yaml = require('js-yaml');
 
 const parser = {
   parse(stringToParse) {
@@ -6,17 +8,7 @@ const parser = {
       throw new Error('The string to be parsed needs to be a string!');
     }
 
-    const parsed = yaml.safeLoad(stringToParse);
-
-    for (var key in parsed) {
-      if (parsed.hasOwnProperty(key)) {
-        if (!parsed[key]) {
-          parsed[key] = '';
-        }
-      }
-    }
-
-    return parsed;
+    return yaml.safeLoad(stringToParse);
   }
 }
 
