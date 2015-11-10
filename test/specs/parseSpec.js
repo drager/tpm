@@ -6,7 +6,7 @@ describe('parser', () => {
   describe('parse', () => {
     it('should return an object', () => {
       const stringToParse = 'typings: ';
-      expect(parser.parse(stringToParse)).to.eql({typings: ''});
+      expect(parser.parse(stringToParse)).to.eql({typings: null});
     });
 
     it('should throw if the passed parameter is undefiend', () => {
@@ -29,7 +29,7 @@ describe('parser', () => {
 
     it('should return a parsed JSON object from the passed parameter string', () => {
       const stringToParse = 'git: ';
-      expect(parser.parse(stringToParse)).to.eql({git: ''});
+      expect(parser.parse(stringToParse)).to.eql({git: null});
     });
   });
 });
