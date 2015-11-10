@@ -26,5 +26,10 @@ describe('parser', () => {
           parser.parse(stringToParse);
         }).to.throw(Error);
     });
+
+    it('should return a parsed JSON object from the passed parameter string', () => {
+      const stringToParse = 'git: ';
+      expect(parser.parse(stringToParse)).to.eql({git: ''});
+    });
   });
 });
