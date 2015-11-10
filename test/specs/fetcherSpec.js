@@ -14,5 +14,12 @@ describe('fetcher', () => {
           fetcher.fetch(parameter);
         }).to.throw('The url to be fetched needs to be a string!');
     });
+
+    it('should throw if the passed parameter is an empty string', () => {
+      const urlToFetch = '';
+      expect(() => {
+          fetcher.fetch(urlToFetch);
+        }).to.throw(Error);
+    });
   });
 });
