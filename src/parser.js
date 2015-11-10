@@ -1,5 +1,8 @@
 const parser = {
-  parse() {
+  parse(stringToParse) {
+    if (stringToParse === undefined) {
+      throw new Error();
+    }
     return {typings: ''};
   }
 }

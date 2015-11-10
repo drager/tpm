@@ -11,7 +11,7 @@ describe('parser', () => {
 
     it('should throw if the passed string is undefiend', () => {
       const stringToParse = 'typings:';
-      expect(parser.parse()).to.throw(Error);
+      expect(parser.parse).to.throw(Error);
     });
   });
 });
