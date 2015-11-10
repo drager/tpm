@@ -9,8 +9,7 @@ describe('parser', () => {
       expect(parser.parse(stringToParse)).to.eql({typings: ''});
     });
 
-    it('should throw if the passed string is undefiend', () => {
-      const stringToParse = 'typings:';
+    it('should throw if the passed parameter is undefiend', () => {
       expect(parser.parse).to.throw(Error);
     });
   });
