@@ -1,6 +1,6 @@
 const parser = {
   parse() {
-    return {};
+    return {typings: ''};
   }
 }
 
