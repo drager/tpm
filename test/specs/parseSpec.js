@@ -12,5 +12,13 @@ describe('parser', () => {
     it('should throw if the passed parameter is undefiend', () => {
       expect(parser.parse).to.throw(Error);
     });
+
+    it('should throw if the passed parameter is not a string', () => {
+      const parameter = 1;
+      expect(
+        function () {
+          parser.parse(parameter);
+        }).to.throw(Error);
+    });
   });
 });
