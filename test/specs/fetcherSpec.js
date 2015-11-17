@@ -5,20 +5,20 @@ const fetcher = require('../../src/fetcher');
 describe('fetcher', () => {
   describe('fetch', () => {
     it('should throw if the passed parameter is undefiend', () => {
-      expect(fetcher.fetch).to.throw('The url to be fetched needs to be a string!');
+      expect(fetcher.get).to.throw('The url to be fetched needs to be a string!');
     });
 
     it('should throw if the passed parameter is not a string', () => {
       const parameter = 1;
       expect(() => {
-          fetcher.fetch(parameter);
+          fetcher.get(parameter);
         }).to.throw('The url to be fetched needs to be a string!');
     });
 
     it('should throw if the passed parameter is an empty string', () => {
       const urlToFetch = '';
       expect(() => {
-          fetcher.fetch(urlToFetch);
+          fetcher.get(urlToFetch);
         }).to.throw('The url to be fetched needs to be a string!');
     });
   });
