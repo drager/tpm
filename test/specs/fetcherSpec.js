@@ -10,6 +10,10 @@ const nodegit = require('nodegit');
 const fetcher = require('../../src/fetcher');
 
 describe('fetcher', () => {
+  before(() => {
+    const cb = sinon.stub(nodegit, 'Clone');
+  });
+
   after(() => {
       // When the test either fails or passes, restore the original
       // nodegit Clone function
@@ -48,10 +52,9 @@ describe('fetcher', () => {
     it('should call Clone with the given url', () => {
       const urlToFetch = 'https://github.com/drager/tpm';
       const fetcherSpy = sinon.spy();
-      const cb = sinon.stub(nodegit, 'Clone');
       fetcher.get(urlToFetch).then(fetcherSpy);
 
-      expect(cb).to.have.been.calledWith(urlToFetch);
+      expect(nodegit.Clone).to.have.been.calledWith(urlToFetch);
     });
   });
 });
