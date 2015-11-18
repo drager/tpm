@@ -1,5 +1,11 @@
-const expect = require('chai').expect;
+const chai = require('chai');
 const sinon = require('sinon');
+const sinonChai = require('sinon-chai');
+const chaiAsPromised = require('chai-as-promised');
+const expect = chai.expect;
+chai.use(chaiAsPromised);
+chai.use(sinonChai);
+
 const fetcher = require('../../src/fetcher');
 
 describe('fetcher', () => {
@@ -22,7 +28,7 @@ describe('fetcher', () => {
         }).to.throw('The url to be fetched needs to be a string!');
     });
 
-    it('should return a Promise', () => {
+    it('should return a resolved Promise', () => {
       const urlToFetch = 'https://github.com/drager/tpm/';
       const fetcherSpy = sinon.spy();
       const promise = fetcher.get(urlToFetch);
