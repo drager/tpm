@@ -6,9 +6,16 @@ const expect = chai.expect;
 chai.use(chaiAsPromised);
 chai.use(sinonChai);
 
+const nodegit = require('nodegit');
 const fetcher = require('../../src/fetcher');
 
 describe('fetcher', () => {
+  after(() => {
+      // When the test either fails or passes, restore the original
+      // nodegit Clone function
+      nodegit.Clone.restore();
+  });
+
   describe('fetch', () => {
     it('should throw if the passed parameter is undefiend', () => {
       expect(fetcher.get).to.throw('The url to be fetched needs to be a string!');
@@ -36,6 +43,15 @@ describe('fetcher', () => {
       return promise.then(fetcherSpy).then(() => {
         expect(fetcherSpy).to.have.been.calledOnce;
       });
+    });
+
+    it('should call Clone with the given url', () => {
+      const urlToFetch = 'https://github.com/drager/tpm';
+      const fetcherSpy = sinon.spy();
+      const cb = sinon.stub(nodegit, 'Clone');
+      fetcher.get(urlToFetch).then(fetcherSpy);
+
+      expect(cb).to.have.been.calledWith(urlToFetch);
     });
   });
 });
