@@ -29,16 +29,13 @@ describe('typings', () => {
         }).to.throw('The path needs to be a string!');
     });
 
-    it('should call lstatSynd with the given path', () => {
+    it('should call lstatSync with the given path', () => {
       const path = '/path/';
       sinon.stub(fs, 'lstatSync').returns({isDirectory: () => false});
 
       typings.find(path);
       expect(fs.lstatSync).to.have.been.calledWith(path);
-    });
-
-    after(() => {
       fs.lstatSync.restore();
-    })
+    });
   });
 });
