@@ -78,7 +78,7 @@ describe('fetcher', () => {
 
     it('should return rejected with a error when url with missing the path to the repository', () => {
       sinon.stub(nodegit.Clone, 'clone').returns(
-        new Promise((resolve, reject) => reject('rejected')));
+        new Promise((resolve, reject) => reject(new Error('invalid url, missing path'))));
       const path = 'tmp';
       const name = 'tpm';
       const urlToFetch = `https://github.com/drager/`;
