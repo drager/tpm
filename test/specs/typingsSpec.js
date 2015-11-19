@@ -13,5 +13,12 @@ describe('typings', () => {
     it('should throw if the passed parameter is undefiend', () => {
       expect(typings.find).to.throw();
     });
+
+    it('should throw if the passed parameter is not a string', () => {
+      const parameter = 1;
+      expect(() => {
+          typings.find(parameter);
+        }).to.throw('The path needs to be a string!');
+    });
   });
 });
