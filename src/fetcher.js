@@ -16,6 +16,8 @@ const fetcher = {
 
     return nodegit.Clone.clone(url, path, null).then((repository) => {
       return path;
+    }).catch((e) => {
+      throw e;
     });
   }
 }

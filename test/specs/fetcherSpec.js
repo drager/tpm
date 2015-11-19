@@ -11,14 +11,6 @@ const fetcher = require('../../src/fetcher');
 
 describe('fetcher', () => {
   describe('fetch', () => {
-    before(() => {
-      sinon.stub(nodegit.Clone, 'clone').returns(
-        new Promise((resolve, reject) => resolve()));
-    });
-
-    after(() => {
-      nodegit.Clone.clone.restore();
-    });
 
     it('should throw if the passed parameter is undefiend', () => {
       expect(fetcher.get).to.throw('The url to be fetched needs to be a string!');
@@ -39,39 +31,48 @@ describe('fetcher', () => {
     });
 
     it('should return a resolved Promise', () => {
+      sinon.stub(nodegit.Clone, 'clone').returns(
+        new Promise((resolve, reject) => resolve('resolved')));
       const urlToFetch = 'https://github.com/drager/tpm/';
       const fetcherSpy = sinon.spy();
       const promise = fetcher.get(urlToFetch);
-
+      nodegit.Clone.clone.restore();
       return promise.then(fetcherSpy).then(() => {
         expect(fetcherSpy).to.have.been.calledOnce;
       });
     });
 
     it('should call Clone with the given url', () => {
+      sinon.stub(nodegit.Clone, 'clone').returns(
+        new Promise((resolve, reject) => resolve('resolved')));
       const urlToFetch = 'https://github.com/drager/tpm';
 
       fetcher.get(urlToFetch);
       expect(nodegit.Clone.clone).to.have.been.calledWith(urlToFetch);
+      nodegit.Clone.clone.restore();
     });
 
     it('should eventually return the local path', () => {
+      sinon.stub(nodegit.Clone, 'clone').returns(
+        new Promise((resolve, reject) => resolve('resolved')));
       const path = 'tmp';
       const name = 'tpm';
       const urlToFetch = `https://github.com/drager/${name}`;
 
       const result = fetcher.get(urlToFetch);
+      nodegit.Clone.clone.restore();
       return expect(result).to.eventually.equal(`${path}/${name}`);
     });
 
     it('should return a error url with missing path to repository', () => {
-
+      sinon.stub(nodegit.Clone, 'clone').returns(
+        new Promise((resolve, reject) => reject('rejected')));
       const path = 'tmp';
       const name = 'tpm';
       const urlToFetch = `https://github.com/drager/`;
 
       const result = fetcher.get(urlToFetch);
-
+      nodegit.Clone.clone.restore();
       return expect(result).to.be.rejected;
     });
 
