@@ -37,5 +37,15 @@ describe('typings', () => {
       expect(fs.lstatSync).to.have.been.calledWith(path);
       fs.lstatSync.restore();
     });
+
+    it('should call readdirSync', () => {
+      const path = 'tmp/typings';
+      var mock = sinon.mock(fs);
+
+      mock.expects('readdirSync').once();
+
+      typings.find(path);
+      mock.verify();
+    });
   });
 });
