@@ -20,5 +20,12 @@ describe('typings', () => {
           typings.find(parameter);
         }).to.throw('The path needs to be a string!');
     });
+
+    it('should throw if the passed parameter is an empty string', () => {
+      const path = '';
+      expect(() => {
+          typings.find(path);
+        }).to.throw('The path needs to be a string!');
+    });
   });
 });
