@@ -64,5 +64,16 @@ describe('fetcher', () => {
       return expect(result).to.eventually.equal(`${path}/${name}`);
     });
 
+    it('should return a error url with missing path to repository', () => {
+
+      const path = 'tmp';
+      const name = 'tpm';
+      const urlToFetch = `https://github.com/drager/`;
+
+      const result = fetcher.get(urlToFetch);
+
+      return expect(result).to.be.rejected;
+    });
+
   });
 });
