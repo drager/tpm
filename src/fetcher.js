@@ -9,10 +9,12 @@ const fetcher = {
       throw new Error('The url to be fetched needs to be a string!');
     }
 
-    const localPath = 'tmp/';
+    let name = 'tpm';
+
+    const path = `tmp/${name}`;
 
     return nodegit.Clone.clone(url, 'tmp', null).then((repository) => {
-      return localPath;
+      return path;
     });
   }
 }

@@ -59,7 +59,7 @@ describe('fetcher', () => {
       const urlToFetch = 'https://github.com/drager/tpm';
 
       const result = fetcher.get(urlToFetch);
-      expect(result).to.equal('/tmp/tpm');
+      return expect(result).to.eventually.equal('tmp/tpm');
     });
 
   });
