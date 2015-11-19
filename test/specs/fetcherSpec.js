@@ -64,7 +64,7 @@ describe('fetcher', () => {
       return expect(result).to.eventually.equal(`${path}/${name}`);
     });
 
-    it('should return a error url with missing path to repository', () => {
+    it('should return rejected promise when the path is missing to repository', () => {
       sinon.stub(nodegit.Clone, 'clone').returns(
         new Promise((resolve, reject) => reject('rejected')));
       const path = 'tmp';
@@ -75,6 +75,5 @@ describe('fetcher', () => {
       nodegit.Clone.clone.restore();
       return expect(result).to.be.rejected;
     });
-
   });
 });
