@@ -55,5 +55,12 @@ describe('fetcher', () => {
       expect(nodegit.Clone.clone).to.have.been.calledWith(urlToFetch);
     });
 
+    it('should eventually return the local path', () => {
+      const urlToFetch = 'https://github.com/drager/tpm';
+
+      const result = fetcher.get(urlToFetch);
+      expect(result).to.equal('/tmp/tpm');
+    });
+
   });
 });
