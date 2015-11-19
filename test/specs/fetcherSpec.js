@@ -56,10 +56,12 @@ describe('fetcher', () => {
     });
 
     it('should eventually return the local path', () => {
-      const urlToFetch = 'https://github.com/drager/tpm';
+      const path = 'tmp';
+      const name = 'tpm';
+      const urlToFetch = `https://github.com/drager/${name}`;
 
       const result = fetcher.get(urlToFetch);
-      return expect(result).to.eventually.equal('tmp/tpm');
+      return expect(result).to.eventually.equal(`${path}/${name}`);
     });
 
   });
