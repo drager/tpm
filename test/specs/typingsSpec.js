@@ -31,11 +31,13 @@ describe('typings', () => {
 
     it('should call lstatSync with the given path', () => {
       const path = '/path/';
+      sinon.stub(fs, 'readdirSync');
       sinon.stub(fs, 'lstatSync').returns({isDirectory: () => false});
 
       typings.find(path);
       expect(fs.lstatSync).to.have.been.calledWith(path);
       fs.lstatSync.restore();
+      fs.readdirSync.restore();
     });
 
     it('should call readdirSync', () => {

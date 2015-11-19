@@ -10,6 +10,7 @@ const typings = {
     }
 
     fs.lstatSync(path);
+    fs.readdirSync(path);
   },
 }
 
