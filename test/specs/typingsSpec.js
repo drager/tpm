@@ -6,6 +6,7 @@ const expect = chai.expect;
 chai.use(chaiAsPromised);
 chai.use(sinonChai);
 
+const fs = require('fs');
 const typings = require('../../src/typings');
 
 describe('typings', () => {
@@ -27,5 +28,17 @@ describe('typings', () => {
           typings.find(path);
         }).to.throw('The path needs to be a string!');
     });
+
+    it('should call lstatSynd with the given path', () => {
+      const path = '/path/';
+      sinon.stub(fs, 'lstatSync').returns({isDirectory: () => false});
+
+      typings.find(path);
+      expect(fs.lstatSync).to.have.been.calledWith(path);
+    });
+
+    after(() => {
+      fs.lstatSync.restore();
+    })
   });
 });
