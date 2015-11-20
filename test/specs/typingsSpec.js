@@ -4,9 +4,11 @@ const chai = require('chai');
 const sinon = require('sinon');
 const sinonChai = require('sinon-chai');
 const chaiAsPromised = require('chai-as-promised');
+const chaiString = require('chai-string');
 const expect = chai.expect;
 chai.use(chaiAsPromised);
 chai.use(sinonChai);
+chai.use(chaiString);
 
 const fs = require('fs');
 const typings = require('../../src/typings');
@@ -100,6 +102,21 @@ describe('typings', () => {
       typings.find(path, () => {});
 
       expect(mock).to.have.been.calledTwice;
+    });
+
+    it('should return files that only ends with .d.ts', () => {
+      const path = 'k/typings';
+      const statStub = sinon.stub(fs, 'statSync');
+      sinon.stub(fs, 'readdirSync').returns(['index.js', 'tpm.d.ts', 'tpm.d.ts.js']);
+      statStub.returns(
+        {
+          isFile: () => true,
+        }
+      );
+
+      typings.find(path, (file) => {
+        expect(file).to.endWith('.d.ts');
+      });
     });
   });
 });
