@@ -9,7 +9,7 @@ const typings = {
       throw new Error('The path needs to be a string!');
     }
 
-    if (callback === undefined) {
+    if (callback === undefined || typeof callback !== 'function') {
       throw new Error('Callback needs to be a function!');
     }
 
