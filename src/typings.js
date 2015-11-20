@@ -13,15 +13,14 @@ const typings = {
       throw new Error('Callback needs to be a function!');
     }
 
-    let filePath;
 
     fs.readdirSync(path).map((name) => {
-        filePath = `${path}/${name}`;
+        const filePath = `${path}/${name}`;
         const stat = fs.statSync(filePath);
+        if (stat.isFile()) {
+          callback(filePath, stat);
+        }
     });
-
-    return filePath;
-
   },
 }
 

@@ -10,15 +10,16 @@ const fs = require('fs');
 const typings = require('../../src/typings');
 
 describe('typings', () => {
-  var mock;
-
-  beforeEach(() => {
-    mock = sinon.mock(fs);
-  });
-
   afterEach(() => {
-    mock.restore();
-  })
+    if (fs.readdirSync.restore !== undefined
+        && typeof fs.readdirSync.restore === 'function') {
+        fs.readdirSync.restore();
+    }
+    if (fs.statSync.restore !== undefined
+        && typeof fs.statSync.restore === 'function') {
+        fs.statSync.restore();
+    }
+  });
 
   describe('find', () => {
     it('should throw if the passed parameter is undefiend', () => {
@@ -45,26 +46,19 @@ describe('typings', () => {
       sinon.stub(fs, 'readdirSync').returns([name]);
       sinon.stub(fs, 'statSync').returns({isFile: () => true});
 
-      const result = typings.find(path, () => {});
-
-      expect(result).to.be.equal(`${path}/${name}`);
-      fs.readdirSync.restore();
-      fs.statSync.restore();
+      typings.find(path, (result) => {
+        expect(result).to.be.equal(`${path}/${name}`);
+      });
     });
 
     it('should call readdirSync once', () => {
       const path = 'tmp/typings';
-
-      mock.expects('readdirSync')
-          .returns(['a'])
-          .withExactArgs(path)
-          .once();
-
-      mock.expects('statSync');
+      sinon.stub(fs, 'statSync').returns({isFile: () => true});
+      var stub = sinon.stub(fs, 'readdirSync').returns([1]);
 
       typings.find(path, () => {});
 
-      mock.verify();
+      expect(stub).to.have.been.calledOnce;
     });
 
     it('should verify that the callback parameter is not undefined', () => {
