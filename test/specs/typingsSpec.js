@@ -74,5 +74,13 @@ describe('typings', () => {
           typings.find(path);
         }).to.throw('Callback needs to be a function!');
     });
+
+    it('should verify that the callback parameter is a function', () => {
+      const path = 'tmp/typings';
+
+      expect(() => {
+          typings.find(path, 's');
+        }).to.throw('Callback needs to be a function!');
+    });
   });
 });
