@@ -10,6 +10,16 @@ const fs = require('fs');
 const typings = require('../../src/typings');
 
 describe('typings', () => {
+  var mock;
+
+  beforeEach(() => {
+    mock = sinon.mock(fs);
+  });
+
+  afterEach(() => {
+    mock.restore();
+  })
+
   describe('find', () => {
     it('should throw if the passed parameter is undefiend', () => {
       expect(typings.find).to.throw();
@@ -35,7 +45,7 @@ describe('typings', () => {
       sinon.stub(fs, 'readdirSync').returns([name]);
       sinon.stub(fs, 'statSync').returns({isFile: () => true});
 
-      var result = typings.find(path);
+      const result = typings.find(path, () => {});
 
       expect(result).to.be.equal(`${path}/${name}`);
       fs.readdirSync.restore();
@@ -44,7 +54,6 @@ describe('typings', () => {
 
     it('should call readdirSync once', () => {
       const path = 'tmp/typings';
-      const mock = sinon.mock(fs);
 
       mock.expects('readdirSync')
           .returns(['a'])
@@ -53,7 +62,7 @@ describe('typings', () => {
 
       mock.expects('statSync');
 
-      typings.find(path);
+      typings.find(path, () => {});
 
       mock.verify();
     });
