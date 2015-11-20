@@ -3,10 +3,14 @@
 const fs = require('fs');
 
 const typings = {
-  find(path) {
+  find(path, callback) {
     if (path === undefined || typeof path !== 'string' ||
         path.length <= 0) {
       throw new Error('The path needs to be a string!');
+    }
+
+    if (callback === undefined) {
+      throw new Error('Callback needs to be a function!');
     }
 
     let filePath;
