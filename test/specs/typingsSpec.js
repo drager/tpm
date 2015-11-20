@@ -57,5 +57,13 @@ describe('typings', () => {
 
       mock.verify();
     });
+
+    it('should verify that the callback parameter is not undefined', () => {
+      const path = 'tmp/typings';
+
+      expect(() => {
+          typings.find(path);
+        }).to.throw('Callback needs to be a function!');
+    });
   });
 });
