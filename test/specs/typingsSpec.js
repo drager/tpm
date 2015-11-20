@@ -1,3 +1,5 @@
+'use strict';
+
 const chai = require('chai');
 const sinon = require('sinon');
 const sinonChai = require('sinon-chai');
@@ -54,11 +56,11 @@ describe('typings', () => {
     it('should call readdirSync once', () => {
       const path = 'tmp/typings';
       sinon.stub(fs, 'statSync').returns({isFile: () => true});
-      var stub = sinon.stub(fs, 'readdirSync').returns([1]);
+      const mock = sinon.stub(fs, 'readdirSync').returns([1]);
 
       typings.find(path, () => {});
 
-      expect(stub).to.have.been.calledOnce;
+      expect(mock).to.have.been.calledOnce;
     });
 
     it('should verify that the callback parameter is not undefined', () => {
@@ -79,7 +81,7 @@ describe('typings', () => {
 
     it('should call readdirSync twice if path contains a folder', () => {
       const path = 'tmp/typings';
-      var statStub = sinon.stub(fs, 'statSync');
+      const statStub = sinon.stub(fs, 'statSync');
       statStub.onCall(0).returns(
         {
           isFile: () => false,
@@ -92,11 +94,12 @@ describe('typings', () => {
           isDirectory: () => false
         }
       );
-      var stub = sinon.stub(fs, 'readdirSync').returns(['typings']);
+
+      const mock = sinon.stub(fs, 'readdirSync').returns(['typings']);
 
       typings.find(path, () => {});
 
-      expect(stub).to.have.been.calledTwice;
+      expect(mock).to.have.been.calledTwice;
     });
   });
 });

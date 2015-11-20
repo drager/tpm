@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const fs = require('fs');
 
@@ -17,7 +17,7 @@ const typings = {
         const filePath = `${path}/${name}`;
         const stat = fs.statSync(filePath);
         if (stat.isFile()) {
-          callback(filePath, stat);
+          callback(filePath);
         } else if (stat.isDirectory()) {
           typings.find(filePath, callback);
         }
