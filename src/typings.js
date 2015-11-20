@@ -17,7 +17,9 @@ const typings = {
         const filePath = `${path}/${name}`;
         const stat = fs.statSync(filePath);
         if (stat.isFile()) {
-          callback(filePath);
+          if (new RegExp('.d.ts$').test(filePath)) {
+            callback(filePath);
+          }
         } else if (stat.isDirectory()) {
           typings.find(filePath, callback);
         }
