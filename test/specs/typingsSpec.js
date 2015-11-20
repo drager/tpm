@@ -29,24 +29,32 @@ describe('typings', () => {
         }).to.throw('The path needs to be a string!');
     });
 
-    it('should call lstatSync with the given path', () => {
-      const path = '/path/';
-      sinon.stub(fs, 'readdirSync');
-      sinon.stub(fs, 'lstatSync').returns({isDirectory: () => false});
+    it('should return path to file when found', () => {
+      const path = 'path';
+      const name = 'tmp.d.ts';
+      sinon.stub(fs, 'readdirSync').returns([name]);
+      sinon.stub(fs, 'statSync').returns({isFile: () => true});
 
-      typings.find(path);
-      expect(fs.lstatSync).to.have.been.calledWith(path);
-      fs.lstatSync.restore();
+      var result = typings.find(path);
+
+      expect(result).to.be.equal(`${path}/${name}`);
       fs.readdirSync.restore();
+      fs.statSync.restore();
     });
 
-    it('should call readdirSync', () => {
+    it('should call readdirSync once', () => {
       const path = 'tmp/typings';
-      var mock = sinon.mock(fs);
+      const mock = sinon.mock(fs);
 
-      mock.expects('readdirSync').once();
+      mock.expects('readdirSync')
+          .returns(['a'])
+          .withExactArgs(path)
+          .once();
+
+      mock.expects('statSync');
 
       typings.find(path);
+
       mock.verify();
     });
   });

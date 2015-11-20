@@ -9,8 +9,15 @@ const typings = {
       throw new Error('The path needs to be a string!');
     }
 
-    fs.lstatSync(path);
-    fs.readdirSync(path);
+    let filePath;
+
+    fs.readdirSync(path).map((name) => {
+        filePath = `${path}/${name}`;
+        const stat = fs.statSync(filePath);
+    });
+
+    return filePath;
+
   },
 }
 
