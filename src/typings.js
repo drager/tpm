@@ -13,12 +13,13 @@ const typings = {
       throw new Error('Callback needs to be a function!');
     }
 
-
     fs.readdirSync(path).map((name) => {
         const filePath = `${path}/${name}`;
         const stat = fs.statSync(filePath);
         if (stat.isFile()) {
           callback(filePath, stat);
+        } else if (stat.isDirectory()) {
+          typings.find(filePath, callback);
         }
     });
   },
