@@ -76,5 +76,27 @@ describe('typings', () => {
           typings.find(path, 's');
         }).to.throw('Callback needs to be a function!');
     });
+
+    it('should call readdirSync twice if path contains a folder', () => {
+      const path = 'tmp/typings';
+      var statStub = sinon.stub(fs, 'statSync');
+      statStub.onCall(0).returns(
+        {
+          isFile: () => false,
+          isDirectory: () => true
+        }
+      );
+      statStub.onCall(1).returns(
+        {
+          isFile: () => true,
+          isDirectory: () => false
+        }
+      );
+      var stub = sinon.stub(fs, 'readdirSync').returns(['typings']);
+
+      typings.find(path, () => {});
+
+      expect(stub).to.have.been.calledTwice;
+    });
   });
 });
