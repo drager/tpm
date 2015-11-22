@@ -35,8 +35,8 @@ describe('parser', () => {
     });
 
     it('should return a parsed JSON object from the passed parameter string', () => {
-      const stringToParse = 'git: ';
-      expect(parser.parse(stringToParse)).to.eql({git: null});
+      const stringToParse = 'typings: ';
+      expect(parser.parse(stringToParse)).to.eql({typings: null});
     });
 
     it('should throw BadFormatError if it does not start with typings', () => {

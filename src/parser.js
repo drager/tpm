@@ -9,7 +9,7 @@ const parser = {
       throw new Error('The string to be parsed needs to be a string!');
     }
 
-    let parsed = yaml.safeLoad(stringToParse);
+    const parsed = yaml.safeLoad(stringToParse);
 
     const key = Object.keys(parsed).find((k) => k);
 
