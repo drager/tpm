@@ -1,5 +1,12 @@
-const expect = require('chai').expect;
+'use strict';
 
+const chai = require('chai');
+const sinon = require('sinon');
+const sinonChai = require('sinon-chai');
+const expect = chai.expect;
+chai.use(sinonChai);
+
+const BadFormatError = require('../../src/errors');
 const parser = require('../../src/parser');
 
 describe('parser', () => {
@@ -30,6 +37,14 @@ describe('parser', () => {
     it('should return a parsed JSON object from the passed parameter string', () => {
       const stringToParse = 'git: ';
       expect(parser.parse(stringToParse)).to.eql({git: null});
+    });
+
+    it('should throw BadFormatError if it does not start with typings', () => {
+      const stringToParse = 'a: ';
+
+      expect(() => {
+          parser.parse(stringToParse);
+        }).to.throw(BadFormatError, 'String needs to start with typings.');
     });
   });
 });
