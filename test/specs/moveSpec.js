@@ -102,6 +102,13 @@ describe('typings', () => {
   });
 
   describe('folderExists', () => {
+    afterEach(() => {
+      if (fs.statSync.restore !== undefined
+          && typeof fs.statSync.restore === 'function') {
+          fs.statSync.restore();
+      }
+    });
+
     it('should throw if no parameter is passed', () => {
       expect(() => {
         typings.folderExists()
@@ -113,6 +120,15 @@ describe('typings', () => {
       expect(() => {
         typings.folderExists(parameter);
       }).to.throw('Path needs to be a string!');
+    });
+
+    it('should call statSync once', () => {
+      const parameter = 'typings_custom';
+      const mock = sinon.stub(fs, 'statSync');
+
+      typings.folderExists(parameter);
+
+      expect(mock).to.have.been.calledOnce;
     });
   });
 });
