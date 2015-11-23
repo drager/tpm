@@ -20,10 +20,6 @@ describe('typings', () => {
           && typeof typings._move.restore === 'function') {
           typings._move.restore();
       }
-      if (fs.statSync.restore !== undefined
-          && typeof fs.statSync.restore === 'function') {
-          fs.statSync.restore();
-      }
     });
 
     it('should throw if no parameter is passed', () => {
@@ -50,6 +46,13 @@ describe('typings', () => {
   });
 
   describe('_move', () => {
+    afterEach(() => {
+      if (fs.statSync.restore !== undefined
+          && typeof fs.statSync.restore === 'function') {
+          fs.statSync.restore();
+      }
+    });
+
     it('should throw if no parameter is passed', () => {
       expect(() => {
         typings._move();
