@@ -126,6 +126,22 @@ describe('typings', () => {
 
       mock.verify();
     });
+
+    it('should call createWriteStream once with savePath and fileName as argument', () => {
+      const filePath = '/tmp/typings/';
+      const fileName = 'tpm.d.ts';
+      const savePath = '/tmp/typings_custom/';
+      const stub = sinon.stub(typings, 'folderExists').returns(true);
+      const mock = sinon.mock(fs);
+
+      const arg = savePath + fileName;
+
+      mock.expects('createWriteStream').once().withExactArgs(arg);
+
+      const result = typings._move(filePath + fileName, savePath);
+
+      mock.verify();
+    });
   });
 
   describe('folderExists', () => {
