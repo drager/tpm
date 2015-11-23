@@ -42,9 +42,7 @@ const typings = {
       throw new Error('savePath needs to be a string!');
     }
 
-    try {
-      const stat = fs.statSync(savePath);
-    } catch (e) {
+    if (!this.folderExists(savePath)) {
       throw new Error(`${savePath} does not exists!`);
     }
   },

@@ -51,6 +51,10 @@ describe('typings', () => {
           && typeof fs.statSync.restore === 'function') {
           fs.statSync.restore();
       }
+      if (typings.folderExists.restore !== undefined
+          && typeof typings.folderExists.restore === 'function') {
+          typings.folderExists.restore();
+      }
     });
 
     it('should throw if no parameter is passed', () => {
@@ -90,10 +94,10 @@ describe('typings', () => {
       }).to.throw('savePath needs to be a string!');
     });
 
-    it('should call statSync once', () => {
+    it('should call folderExists once', () => {
       const parameter = 'tpm.d.ts';
       const savePath = 'typings_custom';
-      const mock = sinon.stub(fs, 'statSync').returns(['typings_custom']);
+      const mock = sinon.stub(typings, 'folderExists').returns(true);
 
       typings._move(parameter, savePath);
 
