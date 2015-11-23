@@ -25,6 +25,9 @@ const typings = {
         }
     });
   },
+  move(files) {
+
+  }
 }
 
 module.exports = typings;
