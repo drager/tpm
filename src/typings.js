@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('fs');
+const Path = require('path');
 
 const typings = {
   find(path, callback) {
@@ -46,7 +47,9 @@ const typings = {
       fs.mkdirSync(savePath);
     }
 
+    const fileName = Path.basename(file);
     const source = fs.createReadStream(file);
+    const destination = fs.createWriteStream(`${savePath}${fileName}`);
   },
   folderExists(path) {
     if (path === undefined || typeof path !== 'string') {

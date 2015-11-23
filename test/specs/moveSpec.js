@@ -60,6 +60,11 @@ describe('typings', () => {
           && typeof fs.mkdirSync.restore === 'function') {
           fs.mkdirSync.restore();
       }
+
+      if (fs.createWriteStream.restore !== undefined
+          && typeof fs.createWriteStream.restore === 'function') {
+          fs.createWriteStream.restore();
+      }
     });
 
     it('should throw if no parameter is passed', () => {
