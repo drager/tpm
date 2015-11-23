@@ -56,9 +56,9 @@ describe('typings', () => {
           typings.folderExists.restore();
       }
 
-      if (fs.mkdir.restore !== undefined
-          && typeof fs.mkdir.restore === 'function') {
-          fs.mkdir.restore();
+      if (fs.mkdirSync.restore !== undefined
+          && typeof fs.mkdirSync.restore === 'function') {
+          fs.mkdirSync.restore();
       }
     });
 
@@ -107,14 +107,14 @@ describe('typings', () => {
       sinon.stub(typings, 'folderExists').returns(false);
       const mock = sinon.mock(fs);
 
-      mock.expects('mkdir').once();
+      mock.expects('mkdirSync').once();
 
       const result = typings._move(parameter, savePath);
 
       mock.verify();
     });
 
-    it('should call createReadStream once', () => {
+    it('should call createReadStream once with file as argument', () => {
       const parameter = 'tpm.d.ts';
       const savePath = 'typings_custom';
       const stub = sinon.stub(typings, 'folderExists').returns(true);

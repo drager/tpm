@@ -43,7 +43,7 @@ const typings = {
     }
 
     if (!this.folderExists(savePath)) {
-      fs.mkdir(savePath, (err) => {});
+      fs.mkdirSync(savePath);
     }
 
     const source = fs.createReadStream(file);
