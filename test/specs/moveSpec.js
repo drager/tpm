@@ -107,5 +107,12 @@ describe('typings', () => {
         typings.folderExists()
       }).to.throw('Path needs to be a string!');
     });
+
+    it('should throw if parameter passed is not a string', () => {
+      const parameter = 13213;
+      expect(() => {
+        typings.folderExists(parameter);
+      }).to.throw('Path needs to be a string!');
+    });
   });
 });
