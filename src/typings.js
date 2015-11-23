@@ -53,7 +53,7 @@ const typings = {
       throw new Error('Path needs to be a string!');
     }
 
-    const stat = fs.statSync(path);
+    fs.statSync(path);
   }
 }
 
