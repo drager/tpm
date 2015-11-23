@@ -17,7 +17,9 @@ describe('parser', () => {
     });
 
     it('should throw if the passed parameter is undefiend', () => {
-      expect(parser.parse).to.throw(Error);
+      expect(() => {
+        parser.parse();
+      }).to.throw(Error);
     });
 
     it('should throw if the passed parameter is not a string', () => {

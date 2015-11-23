@@ -27,7 +27,9 @@ describe('typings', () => {
 
   describe('find', () => {
     it('should throw if the passed parameter is undefiend', () => {
-      expect(typings.find).to.throw();
+      expect(() => {
+        typings.find();
+      }).to.throw(Error);
     });
 
     it('should throw if the passed parameter is not a string', () => {

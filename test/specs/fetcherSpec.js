@@ -13,7 +13,9 @@ describe('fetcher', () => {
   describe('fetch', () => {
 
     it('should throw if the passed parameter is undefiend', () => {
-      expect(fetcher.get).to.throw('The url to be fetched needs to be a string!');
+      expect(() => {
+        fetcher.get();
+      }).to.throw('The url to be fetched needs to be a string!');
     });
 
     it('should throw if the passed parameter is not a string', () => {
