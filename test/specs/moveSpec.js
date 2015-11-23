@@ -74,5 +74,13 @@ describe('typings', () => {
         typings._move(parameter);
       }).to.throw('savePath needs to be a string!');
     });
+
+    it('should throw if savePath is not a string', () => {
+      const parameter = 'tpm.d.ts';
+      const savePath = 123;
+      expect(() => {
+        typings._move(parameter, savePath);
+      }).to.throw('savePath needs to be a string!');
+    });
   });
 });
