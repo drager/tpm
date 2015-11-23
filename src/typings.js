@@ -45,6 +45,8 @@ const typings = {
     if (!this.folderExists(savePath)) {
       fs.mkdir(savePath, (err) => {});
     }
+
+    const source = fs.createReadStream(file);
   },
   folderExists(path) {
     if (path === undefined || typeof path !== 'string') {
