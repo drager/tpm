@@ -20,6 +20,10 @@ describe('typings', () => {
           && typeof typings._move.restore === 'function') {
           typings._move.restore();
       }
+      if (fs.statSync.restore !== undefined
+          && typeof fs.statSync.restore === 'function') {
+          fs.statSync.restore();
+      }
     });
 
     it('should throw if no parameter is passed', () => {
@@ -81,6 +85,16 @@ describe('typings', () => {
       expect(() => {
         typings._move(parameter, savePath);
       }).to.throw('savePath needs to be a string!');
+    });
+
+    it('should call statSync once', () => {
+      const parameter = 'tpm.d.ts';
+      const savePath = 'typings_custom';
+      const mock = sinon.stub(fs, 'statSync').returns(['typings_custom']);
+
+      typings._move(parameter, savePath);
+
+      expect(mock).to.have.been.calledOnce;
     });
   });
 });
