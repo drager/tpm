@@ -104,6 +104,7 @@ describe('typings', () => {
     it('should create savePath folder if it does not exist', () => {
       const parameter = 'tpm.d.ts';
       const savePath = 'typings_custom';
+      sinon.stub(typings, 'folderExists').returns(false);
       const mock = sinon.mock(fs);
 
       mock.expects('mkdir').once();
