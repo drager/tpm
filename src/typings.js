@@ -53,7 +53,14 @@ const typings = {
       throw new Error('Path needs to be a string!');
     }
 
-    fs.statSync(path);
+    let exists = false;
+    try {
+      fs.statSync(path);
+      exists = true;
+    } catch (e) {
+      exists = false;
+    }
+    return exists;
   }
 }
 
