@@ -18,14 +18,14 @@ describe('typings', () => {
     it('should throw if no parameter is passed', () => {
       expect(() => {
         typings.move()
-      }).to.throw('Files needs to an array!');
+      }).to.throw('Files needs to be an array!');
     });
 
     it('should throw if the parameter passed is not an array', () => {
       const parameter = 10;
       expect(() => {
           typings.move(parameter);
-        }).to.throw('Files needs to an array!');
+        }).to.throw('Files needs to be an array!');
     });
   });
 

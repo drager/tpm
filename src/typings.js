@@ -28,7 +28,7 @@ const typings = {
   move(files) {
     if (files === undefined ||
         Object.prototype.toString.call(files) !== '[object Array]') {
-      throw new Error('Files needs to an array!');
+      throw new Error('Files needs to be an array!');
     }
   },
   _move(file) {
