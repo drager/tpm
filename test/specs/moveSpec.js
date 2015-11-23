@@ -28,4 +28,12 @@ describe('typings', () => {
         }).to.throw('Files needs to an array!');
     });
   });
+
+  describe('_move', () => {
+    it('should throw if no parameter is passed', () => {
+      expect(() => {
+        typings._move();
+      }).to.throw('File needs to be a string!');
+    });
+  });
 });
