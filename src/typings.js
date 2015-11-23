@@ -26,7 +26,9 @@ const typings = {
     });
   },
   move(files) {
-
+    if (files === undefined) {
+      throw new Error('Files needs to an array!');
+    }
   }
 }
 
