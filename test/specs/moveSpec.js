@@ -16,7 +16,9 @@ const typings = require('../../src/typings');
 describe('typings', () => {
   describe('move', () => {
     it('should throw if no parameter is passed', () => {
-      expect(typings.move).to.throw('Files needs to an array!');
+      expect(() => {
+        typings.move()
+      }).to.throw('Files needs to an array!');
     });
 
     it('should throw if the parameter passed is not an array', () => {
