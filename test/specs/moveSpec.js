@@ -15,6 +15,13 @@ const typings = require('../../src/typings');
 
 describe('typings', () => {
   describe('move', () => {
+    afterEach(() => {
+      if (typings._move.restore !== undefined
+          && typeof typings._move.restore === 'function') {
+          typings._move.restore();
+      }
+    });
+
     it('should throw if no parameter is passed', () => {
       expect(() => {
         typings.move()
@@ -26,6 +33,15 @@ describe('typings', () => {
       expect(() => {
           typings.move(parameter);
         }).to.throw('Files needs to be an array!');
+    });
+
+    it('should call _move function with each element', () => {
+      const parameter = ['tpm.d.ts', 'typescript.d.ts'];
+      const mock = sinon.stub(typings, '_move');
+
+      typings.move(parameter);
+
+      expect(mock).to.have.been.calledTwice;
     });
   });
 
