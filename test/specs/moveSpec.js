@@ -66,5 +66,13 @@ describe('typings', () => {
         typings._move(parameter, savePath);
       }).to.throw(`${savePath} does not exists!`);
     });
+
+    it('should throw if savePath is not passed', () => {
+      const parameter = 'tpm.d.ts';
+      const savePath = 'typings_custom';
+      expect(() => {
+        typings._move(parameter);
+      }).to.throw('savePath needs to be a string!');
+    });
   });
 });
