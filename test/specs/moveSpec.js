@@ -130,5 +130,12 @@ describe('typings', () => {
 
       expect(mock).to.have.been.calledOnce;
     });
+
+    it('should return false if folder does exists', () => {
+      const parameter = 'sd';
+      sinon.stub(fs, 'statSync').throws(new Error());
+
+      expect(typings.folderExists(parameter)).to.be.false;
+    });
   });
 });
