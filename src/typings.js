@@ -38,6 +38,10 @@ const typings = {
       throw new Error('File needs to be a string!');
     }
 
+    if (savePath === undefined) {
+      throw new Error('savePath needs to be a string!');
+    }
+
     throw new Error(`${savePath} does not exists!`);
   }
 }
