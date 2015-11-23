@@ -35,5 +35,12 @@ describe('typings', () => {
         typings._move();
       }).to.throw('File needs to be a string!');
     });
+
+    it('should throw if parameter passed is not a string', () => {
+      const parameter = 2;
+      expect(() => {
+        typings._move(parameter);
+      }).to.throw('File needs to be a string!');
+    });
   });
 });
