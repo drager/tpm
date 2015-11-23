@@ -30,6 +30,8 @@ const typings = {
         Object.prototype.toString.call(files) !== '[object Array]') {
       throw new Error('Files needs to be an array!');
     }
+
+    files.forEach((file) => this._move(file));
   },
   _move(file) {
     if (file === undefined || typeof file !== 'string') {
