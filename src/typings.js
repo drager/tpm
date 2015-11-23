@@ -32,6 +32,9 @@ const typings = {
     }
   },
   _move(file) {
+    if (file === undefined) {
+      throw new Error('File needs to be a string!');
+    }
   }
 }
 
