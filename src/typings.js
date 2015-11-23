@@ -43,7 +43,7 @@ const typings = {
     }
 
     if (!this.folderExists(savePath)) {
-      throw new Error(`${savePath} does not exists!`);
+      fs.mkdir(savePath, (err) => {});
     }
   },
   folderExists(path) {
