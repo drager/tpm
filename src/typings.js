@@ -38,7 +38,7 @@ const typings = {
       throw new Error('File needs to be a string!');
     }
 
-    if (savePath === undefined) {
+    if (savePath === undefined || typeof savePath !== 'string') {
       throw new Error('savePath needs to be a string!');
     }
 
