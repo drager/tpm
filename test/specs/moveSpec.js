@@ -58,5 +58,13 @@ describe('typings', () => {
         typings._move(parameter);
       }).to.throw('File needs to be a string!');
     });
+
+    it('should throw if savePath folder does not exist', () => {
+      const parameter = 'tpm.d.ts';
+      const savePath = 'typings_custom';
+      expect(() => {
+        typings._move(parameter, savePath);
+      }).to.throw(`${savePath} does not exists!`);
+    });
   });
 });
