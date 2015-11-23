@@ -26,7 +26,8 @@ const typings = {
     });
   },
   move(files) {
-    if (files === undefined) {
+    if (files === undefined ||
+        Object.prototype.toString.call(files) !== '[object Array]') {
       throw new Error('Files needs to an array!');
     }
   }
