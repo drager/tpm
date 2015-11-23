@@ -42,7 +42,11 @@ const typings = {
       throw new Error('savePath needs to be a string!');
     }
 
-    throw new Error(`${savePath} does not exists!`);
+    try {
+      const stat = fs.statSync(savePath);
+    } catch (e) {
+      throw new Error(`${savePath} does not exists!`);
+    }
   }
 }
 
