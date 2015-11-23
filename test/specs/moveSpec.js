@@ -113,6 +113,19 @@ describe('typings', () => {
 
       mock.verify();
     });
+
+    it('should call createReadStream once', () => {
+      const parameter = 'tpm.d.ts';
+      const savePath = 'typings_custom';
+      const stub = sinon.stub(typings, 'folderExists').returns(true);
+      const mock = sinon.mock(fs);
+
+      mock.expects('createReadStream').once().withExactArgs(parameter);
+
+      const result = typings._move(parameter, savePath);
+
+      mock.verify();
+    });
   });
 
   describe('folderExists', () => {
