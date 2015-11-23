@@ -47,6 +47,8 @@ const typings = {
     } catch (e) {
       throw new Error(`${savePath} does not exists!`);
     }
+  },
+  folderExists(path) {
   }
 }
 

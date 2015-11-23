@@ -100,4 +100,12 @@ describe('typings', () => {
       expect(mock).to.have.been.calledOnce;
     });
   });
+
+  describe('folderExists', () => {
+    it('should throw if no parameter is passed', () => {
+      expect(() => {
+        typings.folderExists()
+      }).to.throw('Path needs to be a string!');
+    });
+  });
 });
