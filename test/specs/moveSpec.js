@@ -55,6 +55,11 @@ describe('typings', () => {
           && typeof typings.folderExists.restore === 'function') {
           typings.folderExists.restore();
       }
+
+      if (fs.mkdir.restore !== undefined
+          && typeof fs.mkdir.restore === 'function') {
+          fs.mkdir.restore();
+      }
     });
 
     it('should throw if no parameter is passed', () => {
@@ -102,6 +107,18 @@ describe('typings', () => {
       typings._move(parameter, savePath);
 
       expect(mock).to.have.been.calledOnce;
+    });
+
+    it('should create savePath folder if it does not exist', () => {
+      const parameter = 'tpm.d.ts';
+      const savePath = 'typings_custom';
+      const mock = sinon.mock(fs);
+
+      mock.expects('mkdir').once();
+
+      const result = typings._move(parameter, savePath);
+
+      mock.verify();
     });
   });
 
