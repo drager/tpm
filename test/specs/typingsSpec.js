@@ -106,6 +106,25 @@ describe('typings', () => {
       expect(mock).to.have.been.calledTwice;
     });
 
+    it('should not call on callback if path does not contain folders nor files', () => {
+      const path = 'tmp/non-file';
+      const statStub = sinon.stub(fs, 'statSync');
+
+      sinon.stub(fs, 'readdirSync').returns(['']);
+      statStub.returns(
+        {
+          isFile: () => false,
+          isDirectory: () => false,
+        }
+      );
+
+      const spy = sinon.spy();
+
+      typings.find(path, spy);
+
+      expect(spy).to.not.have.been.called;
+    });
+
     it('should return files that only ends with .d.ts', () => {
       const path = 'k/typings';
       const statStub = sinon.stub(fs, 'statSync');
