@@ -32,7 +32,7 @@ const typings = {
     }
   },
   _move(file) {
-    if (file === undefined) {
+    if (file === undefined || typeof file !== 'string') {
       throw new Error('File needs to be a string!');
     }
   }
