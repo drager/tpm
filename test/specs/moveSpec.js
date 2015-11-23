@@ -99,6 +99,7 @@ describe('typings', () => {
     it('should call folderExists once', () => {
       const parameter = 'tpm.d.ts';
       const savePath = 'typings_custom';
+      sinon.stub(fs, 'createWriteStream');
       const mock = sinon.stub(typings, 'folderExists').returns(true);
 
       typings._move(parameter, savePath);
@@ -109,6 +110,7 @@ describe('typings', () => {
     it('should create savePath folder if it does not exist', () => {
       const parameter = 'tpm.d.ts';
       const savePath = 'typings_custom';
+      sinon.stub(fs, 'createWriteStream');
       sinon.stub(typings, 'folderExists').returns(false);
       const mock = sinon.mock(fs);
 
@@ -122,6 +124,7 @@ describe('typings', () => {
     it('should call createReadStream once with file as argument', () => {
       const parameter = 'tpm.d.ts';
       const savePath = 'typings_custom';
+      sinon.stub(fs, 'createWriteStream');
       const stub = sinon.stub(typings, 'folderExists').returns(true);
       const mock = sinon.mock(fs);
 
