@@ -66,6 +66,11 @@ describe('typings', () => {
           && typeof fs.createWriteStream.restore === 'function') {
           fs.createWriteStream.restore();
       }
+
+      if (fs.createReadStream.restore !== undefined
+          && typeof fs.createReadStream.restore === 'function') {
+          fs.createReadStream.restore();
+      }
     });
 
     it('should throw if no parameter is passed', () => {

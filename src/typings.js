@@ -15,15 +15,15 @@ const typings = {
     }
 
     fs.readdirSync(path).map((name) => {
-        const filePath = `${path}/${name}`;
-        const stat = fs.statSync(filePath);
-        if (stat.isFile()) {
-          if (new RegExp('.d.ts$').test(filePath)) {
-            callback(filePath);
-          }
-        } else if (stat.isDirectory()) {
-          typings.find(filePath, callback);
+      const filePath = `${path}/${name}`;
+      const stat = fs.statSync(filePath);
+      if (stat.isFile()) {
+        if (new RegExp('.d.ts$').test(filePath)) {
+          callback(filePath);
         }
+      } else if (stat.isDirectory()) {
+        typings.find(filePath, callback);
+      }
     });
   },
   move(files) {
@@ -49,8 +49,7 @@ const typings = {
 
     const fileName = Path.basename(file);
     const source = fs.createReadStream(Path.normalize(file));
-    const destination = fs.createWriteStream(Path.normalize(`${savePath}${fileName}`));
-
+    const destination = fs.createWriteStream(Path.normalize(`${savePath}/${fileName}`));
   },
   folderExists(path) {
     if (path === undefined || typeof path !== 'string') {
