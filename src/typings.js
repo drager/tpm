@@ -51,7 +51,7 @@ const typings = {
     const source = fs.createReadStream(Path.normalize(file));
     const destination = fs.createWriteStream(Path.normalize(`${savePath}/${fileName}`));
 
-    source.pipe();
+    source.pipe(destination);
   },
   folderExists(path) {
     if (path === undefined || typeof path !== 'string') {
