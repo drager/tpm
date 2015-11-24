@@ -71,6 +71,16 @@ describe('typings', () => {
           && typeof fs.createReadStream.restore === 'function') {
           fs.createReadStream.restore();
       }
+
+      if (fs.WriteStream.restore !== undefined
+          && typeof fs.WriteStream.restore === 'function') {
+          fs.WriteStream.restore();
+      }
+
+      if (Path.normalize.restore !== undefined
+          && typeof Path.normalize.restore === 'function') {
+          Path.normalize.restore();
+      }
     });
 
     it('should throw if no parameter is passed', () => {
@@ -171,6 +181,22 @@ describe('typings', () => {
       const result = typings._move(filePath + fileName, savePath);
 
       mock.verify();
+    });
+
+    it('should call pipe once', () => {
+      const filePath = '/tmp/typings/';
+      const fileName = 'tpm.d.ts';
+      const savePath = '/tmp/typings_custom/';
+      const spy = sinon.spy();
+      sinon.stub(fs, 'createReadStream').returns({pipe: spy});
+      const stream = sinon.stub(fs, 'WriteStream');
+      sinon.stub(fs, 'createWriteStream').returns(stream);
+      sinon.stub(typings, 'folderExists').returns(true);
+      sinon.stub(Path, 'normalize');
+
+      const result = typings._move(filePath + fileName, savePath);
+
+      expect(spy).to.be.calledOnce;
     });
   });
 
