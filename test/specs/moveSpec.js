@@ -12,6 +12,7 @@ chai.use(chaiString);
 
 const fs = require('fs');
 const typings = require('../../src/typings');
+const Path = require('path');
 
 describe('typings', () => {
   describe('move', () => {
@@ -145,6 +146,22 @@ describe('typings', () => {
       const arg = savePath + fileName;
 
       mock.expects('createWriteStream').once().withExactArgs(arg);
+
+      const result = typings._move(filePath + fileName, savePath);
+
+      mock.verify();
+    });
+
+    it('should call normalize twice', () => {
+      const filePath = '/tmp/typings/';
+      const fileName = 'tpm.d.ts';
+      const savePath = '/tmp/typings_custom/';
+      sinon.stub(fs, 'createReadStream');
+      sinon.stub(fs, 'createWriteStream');
+      sinon.stub(typings, 'folderExists').returns(true);
+      const mock = sinon.mock(Path);
+
+      mock.expects('normalize').twice();
 
       const result = typings._move(filePath + fileName, savePath);
 
