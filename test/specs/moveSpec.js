@@ -116,6 +116,7 @@ describe('typings', () => {
       const parameter = 'tpm.d.ts';
       const savePath = 'typings_custom';
       sinon.stub(fs, 'createWriteStream');
+      sinon.stub(fs, 'createReadStream').returns({pipe: sinon.spy()});
       const mock = sinon.stub(typings, 'folderExists').returns(true);
 
       typings._move(parameter, savePath);
@@ -127,6 +128,7 @@ describe('typings', () => {
       const parameter = 'tpm.d.ts';
       const savePath = 'typings_custom';
       sinon.stub(fs, 'createWriteStream');
+      sinon.stub(fs, 'createReadStream').returns({pipe: sinon.spy()});
       sinon.stub(typings, 'folderExists').returns(false);
       const mock = sinon.mock(fs);
 
@@ -144,7 +146,7 @@ describe('typings', () => {
       const stub = sinon.stub(typings, 'folderExists').returns(true);
       const mock = sinon.mock(fs);
 
-      mock.expects('createReadStream').once().withExactArgs(parameter);
+      mock.expects('createReadStream').returns({pipe: sinon.spy()}).once().withExactArgs(parameter);
 
       const result = typings._move(parameter, savePath);
 
@@ -155,6 +157,7 @@ describe('typings', () => {
       const filePath = '/tmp/typings/';
       const fileName = 'tpm.d.ts';
       const savePath = '/tmp/typings_custom/';
+      sinon.stub(fs, 'createReadStream').returns({pipe: sinon.spy()});
       const stub = sinon.stub(typings, 'folderExists').returns(true);
       const mock = sinon.mock(fs);
 
@@ -171,7 +174,7 @@ describe('typings', () => {
       const filePath = '/tmp/typings/';
       const fileName = 'tpm.d.ts';
       const savePath = '/tmp/typings_custom/';
-      sinon.stub(fs, 'createReadStream');
+      sinon.stub(fs, 'createReadStream').returns({pipe: sinon.spy()});
       sinon.stub(fs, 'createWriteStream');
       sinon.stub(typings, 'folderExists').returns(true);
       const mock = sinon.mock(Path);
