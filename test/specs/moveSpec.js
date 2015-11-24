@@ -201,6 +201,22 @@ describe('typings', () => {
 
       expect(spy).to.be.calledOnce;
     });
+
+    it('should call pipe with write stream', () => {
+      const filePath = '/tmp/typings/';
+      const fileName = 'tpm.d.ts';
+      const savePath = '/tmp/typings_custom/';
+      const spy = sinon.spy();
+      sinon.stub(fs, 'createReadStream').returns({pipe: spy});
+      const stream = sinon.stub(fs, 'WriteStream');
+      sinon.stub(fs, 'createWriteStream').returns(stream);
+      sinon.stub(typings, 'folderExists').returns(true);
+      sinon.stub(Path, 'normalize');
+
+      const result = typings._move(filePath + fileName, savePath);
+
+      expect(spy).to.be.calledWithExactly(stream);
+    });
   });
 
   describe('folderExists', () => {
