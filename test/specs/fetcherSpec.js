@@ -12,10 +12,19 @@ const fetcher = require('../../src/fetcher');
 
 describe('fetcher', () => {
   describe('fetch', () => {
+    beforeEach(() => {
+      sinon.stub(temp, 'mkdirSync');
+    });
+
     afterEach(() => {
       if (temp.track.restore !== undefined
           && typeof temp.track.restore === 'function') {
           temp.track.restore();
+      }
+
+      if (temp.mkdirSync.restore !== undefined
+          && typeof temp.mkdirSync.restore === 'function') {
+          temp.mkdirSync.restore();
       }
 
       if (nodegit.Clone.clone.restore !== undefined
@@ -120,6 +129,11 @@ describe('fetcher', () => {
       sinon.stub(nodegit.Clone, 'clone').returns(
         new Promise((resolve, reject) => resolve('resolved')));
       const mock = sinon.mock(temp);
+
+      if (temp.mkdirSync.restore !== undefined
+          && typeof temp.mkdirSync.restore === 'function') {
+          temp.mkdirSync.restore();
+      }
 
       mock.expects('mkdirSync').once();
 

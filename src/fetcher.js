@@ -17,6 +17,8 @@ const fetcher = {
 
     temp.track();
 
+    temp.mkdirSync('tpm-');
+
     return nodegit.Clone.clone(url, path, null).then((repository) => {
       return path;
     }).catch((e) => {
