@@ -1,6 +1,7 @@
 "use strict";
 
 const nodegit = require('nodegit');
+const temp = require('temp');
 
 const fetcher = {
   get(url) {
@@ -13,6 +14,8 @@ const fetcher = {
     name = name[name.length - 1];
 
     const path = `tmp/${name}`;
+
+    temp.track();
 
     return nodegit.Clone.clone(url, path, null).then((repository) => {
       return path;
