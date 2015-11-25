@@ -119,7 +119,7 @@ describe('fetcher', () => {
 
       mock.expects('track').once();
 
-      const result = fetcher.get(urlToFetch);
+      fetcher.get(urlToFetch);
 
       mock.verify();
     });
@@ -135,9 +135,9 @@ describe('fetcher', () => {
           temp.mkdirSync.restore();
       }
 
-      mock.expects('mkdirSync').once();
+      mock.expects('mkdirSync').once().withArgs('tpm-');
 
-      const result = fetcher.get(urlToFetch);
+      fetcher.get(urlToFetch);
 
       mock.verify();
     });
