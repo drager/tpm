@@ -12,6 +12,17 @@ const fetcher = require('../../src/fetcher');
 
 describe('fetcher', () => {
   describe('fetch', () => {
+    afterEach(() => {
+      if (temp.track.restore !== undefined
+          && typeof temp.track.restore === 'function') {
+          temp.track.restore();
+      }
+
+      if (nodegit.Clone.clone.restore !== undefined
+          && typeof nodegit.Clone.clone.restore === 'function') {
+          nodegit.Clone.clone.restore();
+      }
+    });
 
     it('should throw if the passed parameter is undefiend', () => {
       expect(() => {
