@@ -7,6 +7,7 @@ chai.use(chaiAsPromised);
 chai.use(sinonChai);
 
 const nodegit = require('nodegit');
+const temp = require('temp');
 const fetcher = require('../../src/fetcher');
 
 describe('fetcher', () => {
@@ -88,6 +89,19 @@ describe('fetcher', () => {
       const result = fetcher.get(urlToFetch);
       nodegit.Clone.clone.restore();
       return expect(result).to.be.rejectedWith('invalid url, missing path');
+    });
+
+    it('should call temp.track() once', () => {
+      const urlToFetch = `https://github.com/drager/tpm`;
+      sinon.stub(nodegit.Clone, 'clone').returns(
+        new Promise((resolve, reject) => resolve('resolved')));
+      const mock = sinon.mock(temp);
+
+      mock.expects('track').once();
+
+      const result = fetcher.get(urlToFetch);
+
+      mock.verify();
     });
   });
 });
