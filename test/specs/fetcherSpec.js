@@ -114,5 +114,18 @@ describe('fetcher', () => {
 
       mock.verify();
     });
+
+    it('should call temp.mkdirSync() once', () => {
+      const urlToFetch = `https://github.com/drager/tpm`;
+      sinon.stub(nodegit.Clone, 'clone').returns(
+        new Promise((resolve, reject) => resolve('resolved')));
+      const mock = sinon.mock(temp);
+
+      mock.expects('mkdirSync').once();
+
+      const result = fetcher.get(urlToFetch);
+
+      mock.verify();
+    });
   });
 });
