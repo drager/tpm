@@ -36,23 +36,23 @@ describe('fetcher', () => {
       }
     });
 
-    it('should throw if the passed parameter is undefiend', () => {
+    it('should throw if the url parameter is undefiend', () => {
       expect(() => {
         fetcher.get();
       }).to.throw('The url to be fetched needs to be a string!');
     });
 
-    it('should throw if the passed parameter is not a string', () => {
+    it('should throw if the url parameter is not a string', () => {
       const parameter = 1;
       expect(() => {
-          fetcher.get(parameter);
+          fetcher.get(parameter, 'tpm');
         }).to.throw('The url to be fetched needs to be a string!');
     });
 
-    it('should throw if the passed parameter is an empty string', () => {
+    it('should throw if the url parameter is an empty string', () => {
       const urlToFetch = '';
       expect(() => {
-          fetcher.get(urlToFetch);
+          fetcher.get(urlToFetch, 'tpm');
         }).to.throw('The url to be fetched needs to be a string!');
     });
 
@@ -67,7 +67,7 @@ describe('fetcher', () => {
         new Promise((resolve, reject) => resolve('resolved')));
       const urlToFetch = 'https://github.com/drager/tpm/';
       const fetcherSpy = sinon.spy();
-      const promise = fetcher.get(urlToFetch);
+      const promise = fetcher.get(urlToFetch, 'tpm');
       nodegit.Clone.clone.restore();
       return promise.then(fetcherSpy).then(() => {
         expect(fetcherSpy).to.have.been.calledOnce;
@@ -79,7 +79,7 @@ describe('fetcher', () => {
         new Promise((resolve, reject) => resolve('resolved')));
       const urlToFetch = 'https://github.com/drager/tpm';
 
-      fetcher.get(urlToFetch);
+      fetcher.get(urlToFetch, 'tpm');
       expect(nodegit.Clone.clone).to.have.been.calledWith(urlToFetch);
       nodegit.Clone.clone.restore();
     });
@@ -93,7 +93,7 @@ describe('fetcher', () => {
 
       mkdirSync.returns(createdFolderPath)
 
-      const result = fetcher.get(urlToFetch);
+      const result = fetcher.get(urlToFetch, 'tpm');
       nodegit.Clone.clone.restore();
       return expect(result).to.eventually.equal(`${createdFolderPath}/${name}`);
     });
@@ -105,7 +105,7 @@ describe('fetcher', () => {
       const name = 'tpm';
       const urlToFetch = `https://github.com/drager/`;
 
-      const result = fetcher.get(urlToFetch);
+      const result = fetcher.get(urlToFetch, 'tpm');
       nodegit.Clone.clone.restore();
       return expect(result).to.be.rejected;
     });
@@ -117,7 +117,7 @@ describe('fetcher', () => {
       const name = 'tpm';
       const urlToFetch = `https://github.com/drager/`;
 
-      const result = fetcher.get(urlToFetch);
+      const result = fetcher.get(urlToFetch, 'tpm');
       nodegit.Clone.clone.restore();
       return expect(result).to.be.rejectedWith('invalid url, missing path');
     });
@@ -130,7 +130,7 @@ describe('fetcher', () => {
 
       mock.expects('track').once();
 
-      fetcher.get(urlToFetch);
+      fetcher.get(urlToFetch, 'tpm');
 
       mock.verify();
     });
@@ -148,7 +148,7 @@ describe('fetcher', () => {
 
       mock.expects('mkdirSync').once().withArgs('tpm-');
 
-      fetcher.get(urlToFetch);
+      fetcher.get(urlToFetch, 'tpm');
 
       mock.verify();
     });
