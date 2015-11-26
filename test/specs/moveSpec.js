@@ -96,6 +96,13 @@ describe('typings', () => {
       }).to.throw('File needs to be a string!');
     });
 
+    it('should throw if the passed parameter is an empty string', () => {
+      const parameter = '';
+      expect(() => {
+        typings._move(parameter);
+      }).to.throw('File needs to be a string!');
+    });
+
     it('should throw if savePath is not passed', () => {
       const parameter = 'tpm.d.ts';
       const savePath = 'typings_custom';
