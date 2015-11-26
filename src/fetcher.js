@@ -2,6 +2,7 @@
 
 const nodegit = require('nodegit');
 const temp = require('temp');
+const Path = require('path');
 
 const fetcher = {
   get(url, name) {
@@ -19,7 +20,7 @@ const fetcher = {
 
     let path = temp.mkdirSync('tpm-');
 
-    path = `${path}/${name}`;
+    path = Path.normalize(`${path}/${name}`);
 
     return nodegit.Clone.clone(url, path, null).then((repository) => {
       return path;
