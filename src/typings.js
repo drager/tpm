@@ -35,7 +35,8 @@ const typings = {
     files.forEach((file) => this._move(file));
   },
   _move(file, savePath) {
-    if (file === undefined || typeof file !== 'string') {
+    if (file === undefined || typeof file !== 'string' ||
+        file.length <= 0) {
       throw new Error('File needs to be a string!');
     }
 
