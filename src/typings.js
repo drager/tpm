@@ -68,7 +68,7 @@ const typings = {
     return exists;
   },
   createDirectories(path) {
-    if (path === undefined) {
+    if (path === undefined || typeof path !== 'string') {
       throw new Error('Path needs to be a string!');
     }
   }
