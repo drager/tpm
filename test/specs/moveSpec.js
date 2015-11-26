@@ -47,6 +47,10 @@ describe('typings', () => {
   });
 
   describe('_move', () => {
+    beforeEach(() => {
+      sinon.stub(typings, 'createDirectories');
+    });
+
     afterEach(() => {
       if (fs.statSync.restore !== undefined
           && typeof fs.statSync.restore === 'function') {
@@ -80,6 +84,11 @@ describe('typings', () => {
       if (Path.normalize.restore !== undefined
           && typeof Path.normalize.restore === 'function') {
           Path.normalize.restore();
+      }
+
+      if (typings.createDirectories.restore !== undefined
+          && typeof typings.createDirectories.restore === 'function') {
+          typings.createDirectories.restore();
       }
     });
 
@@ -145,7 +154,10 @@ describe('typings', () => {
       sinon.stub(fs, 'createWriteStream');
       sinon.stub(fs, 'createReadStream').returns({pipe: sinon.spy()});
       sinon.stub(typings, 'folderExists').returns(false);
-      sinon.stub(fs, 'mkdirSync');
+      if (typings.createDirectories.restore !== undefined
+          && typeof typings.createDirectories.restore === 'function') {
+          typings.createDirectories.restore();
+      }
       const mock = sinon.mock(typings);
 
       mock.expects('createDirectories').once();

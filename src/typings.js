@@ -46,7 +46,7 @@ const typings = {
     }
 
     if (!this.folderExists(savePath)) {
-      fs.mkdirSync(savePath);
+      this.createDirectories(savePath);
     }
 
     const fileName = Path.basename(file);
