@@ -88,7 +88,7 @@ const typings = {
       let fullPath = Path.normalize(root + directory);
 
       if (!this.folderExists(fullPath)) {
-        fs.mkdirSync();
+        fs.mkdirSync(fullPath);
       }
 
       root += directory + Path.sep;
