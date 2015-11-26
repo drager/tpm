@@ -154,5 +154,12 @@ describe('typings', () => {
         typings.createDirectories(path);
       }).to.throw('Path needs to be a string!');
     });
+
+    it('should throw if the passed parameter is an empty string', () => {
+      const parameter = '';
+      expect(() => {
+        typings.createDirectories(parameter);
+      }).to.throw('Path needs to be a string!');
+    });
   });
 });
