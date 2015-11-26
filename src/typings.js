@@ -81,7 +81,7 @@ const typings = {
     while (directories.length > 0) {
       let directory = directories.shift();
 
-      let fullPath = root + directory;
+      let fullPath = Path.normalize(root + directory);
 
       this.folderExists(fullPath);
     }
