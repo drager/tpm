@@ -147,5 +147,12 @@ describe('typings', () => {
         typings.createDirectories();
       }).to.throw('Path needs to be a string!');
     });
+
+    it('should throw if parameter passed is not a string', () => {
+      const path = 94;
+      expect(() => {
+        typings.createDirectories(path);
+      }).to.throw('Path needs to be a string!');
+    });
   });
 });
