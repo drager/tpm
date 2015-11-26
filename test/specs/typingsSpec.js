@@ -232,5 +232,22 @@ describe('typings', () => {
 
       mock.verify();
     });
+
+    it('should never call mkdirSync when folder exists', () => {
+      const path = '/tmp/typings';
+      sinon.stub(typings, 'folderExists').returns(true);
+      const mock = sinon.mock(fs);
+
+      if (fs.mkdirSync.restore !== undefined
+          && typeof fs.mkdirSync.restore === 'function') {
+          fs.mkdirSync.restore();
+      }
+
+      mock.expects('mkdirSync').never();
+
+      typings.createDirectories(path);
+
+      mock.verify();
+    });
   });
 });
