@@ -143,6 +143,12 @@ describe('typings', () => {
   });
 
   describe('createDirectories', () => {
+    let mkdirSync;
+
+    beforeEach(() => {
+      mkdirSync = sinon.stub(fs, 'mkdirSync');
+    });
+
     afterEach(() => {
       if (typings.folderExists.restore !== undefined
           && typeof typings.folderExists.restore === 'function') {
@@ -152,6 +158,11 @@ describe('typings', () => {
       if (Path.normalize.restore !== undefined
           && typeof Path.normalize.restore === 'function') {
           Path.normalize.restore();
+      }
+
+      if (fs.mkdirSync.restore !== undefined
+          && typeof fs.mkdirSync.restore === 'function') {
+          fs.mkdirSync.restore();
       }
     });
 
@@ -199,6 +210,23 @@ describe('typings', () => {
       const mock = sinon.mock(Path);
 
       mock.expects('normalize').thrice();
+
+      typings.createDirectories(path);
+
+      mock.verify();
+    });
+
+    it('should call mkdirSync thrice for folder with one subfolder', () => {
+      const path = '/tmp/typings';
+      sinon.stub(typings, 'folderExists').returns(false);
+      const mock = sinon.mock(fs);
+
+      if (fs.mkdirSync.restore !== undefined
+          && typeof fs.mkdirSync.restore === 'function') {
+          fs.mkdirSync.restore();
+      }
+
+      mock.expects('mkdirSync').thrice();
 
       typings.createDirectories(path);
 
