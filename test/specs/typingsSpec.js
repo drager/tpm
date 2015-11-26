@@ -184,6 +184,15 @@ describe('typings', () => {
       expect(mock).to.have.been.calledThrice;
     });
 
+    it('should call folderExists with full folder path for folder with one subfolder on last call', () => {
+      const path = '/tmp/typings';
+      const mock = sinon.stub(typings, 'folderExists');
+
+      typings.createDirectories(path);
+
+      expect(mock).to.have.been.calledWith('/tmp/typings').onLastCall;
+    });
+
     it('should call Path.normalize thrice for folder with one subfolder', () => {
       const path = '/tmp/typings';
       sinon.stub(typings, 'folderExists');
