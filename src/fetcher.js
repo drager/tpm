@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const nodegit = require('nodegit');
 const temp = require('temp');
