@@ -74,6 +74,17 @@ const typings = {
         path.length <= 0) {
       throw new Error('Path needs to be a string!');
     }
+
+    let directories = path.split(Path.sep);
+    let root = '';
+
+    while (directories.length > 0) {
+      let directory = directories.shift();
+
+      let fullPath = root + directory;
+
+      this.folderExists(fullPath);
+    }
   }
 }
 
