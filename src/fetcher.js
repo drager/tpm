@@ -10,7 +10,8 @@ const fetcher = {
       throw new Error('The url to be fetched needs to be a string!');
     }
 
-    if (name === undefined || typeof name !== 'string') {
+    if (name === undefined || typeof name !== 'string' ||
+        name.length <= 0) {
       throw new Error('The name needs to be a string!');
     }
 
