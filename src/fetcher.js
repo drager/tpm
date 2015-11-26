@@ -15,15 +15,14 @@ const fetcher = {
       throw new Error('The name needs to be a string!');
     }
 
-    name = url.split('/');
-    name = name[name.length - 1];
-
     temp.track();
 
-    const path = temp.mkdirSync('tpm-');
+    let path = temp.mkdirSync('tpm-');
+
+    path = `${path}/${name}`;
 
     return nodegit.Clone.clone(url, path, null).then((repository) => {
-      return path + '/' + name;
+      return path;
     }).catch((e) => {
       throw e;
     });
