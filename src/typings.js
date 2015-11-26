@@ -81,9 +81,15 @@ const typings = {
     while (directories.length > 0) {
       let directory = directories.shift();
 
+      if (directory === '') {
+        root = Path.sep;
+      }
+
       let fullPath = Path.normalize(root + directory);
 
       this.folderExists(fullPath);
+
+      root += directory + Path.sep;
     }
   }
 }
