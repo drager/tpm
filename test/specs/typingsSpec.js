@@ -11,6 +11,7 @@ chai.use(sinonChai);
 chai.use(chaiString);
 
 const fs = require('fs');
+const Path = require('path');
 const typings = require('../../src/typings');
 
 describe('typings', () => {
@@ -142,6 +143,18 @@ describe('typings', () => {
   });
 
   describe('createDirectories', () => {
+    afterEach(() => {
+      if (typings.folderExists.restore !== undefined
+          && typeof typings.folderExists.restore === 'function') {
+          typings.folderExists.restore();
+      }
+
+      if (Path.normalize.restore !== undefined
+          && typeof Path.normalize.restore === 'function') {
+          Path.normalize.restore();
+      }
+    });
+
     it('should throw if path is not passed', () => {
       expect(() => {
         typings.createDirectories();
@@ -169,6 +182,18 @@ describe('typings', () => {
       typings.createDirectories(path);
 
       expect(mock).to.have.been.calledThrice;
+    });
+
+    it('should call Path.normalize thrice for folder with one subfolder', () => {
+      const path = '/tmp/typings';
+      sinon.stub(typings, 'folderExists');
+      const mock = sinon.mock(Path);
+
+      mock.expects('normalize').thrice();
+
+      typings.createDirectories(path);
+
+      mock.verify();
     });
   });
 });
