@@ -195,7 +195,7 @@ describe('typings', () => {
 
     it('should call Path.normalize thrice for folder with one subfolder', () => {
       const path = '/tmp/typings';
-      sinon.stub(typings, 'folderExists');
+      sinon.stub(typings, 'folderExists').returns(true);
       const mock = sinon.mock(Path);
 
       mock.expects('normalize').thrice();
