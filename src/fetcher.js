@@ -4,13 +4,17 @@ const nodegit = require('nodegit');
 const temp = require('temp');
 
 const fetcher = {
-  get(url) {
+  get(url, name) {
     if (url === undefined || typeof url !== 'string' ||
         url.length <= 0) {
       throw new Error('The url to be fetched needs to be a string!');
     }
 
-    let name = url.split('/');
+    if (name === undefined) {
+      throw new Error('The name needs to be a string!');
+    }
+
+    name = url.split('/');
     name = name[name.length - 1];
 
     temp.track();
