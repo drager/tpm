@@ -89,14 +89,14 @@ describe('typings', () => {
       }).to.throw('File needs to be a string!');
     });
 
-    it('should throw if parameter passed is not a string', () => {
+    it('should throw if file parameter is not a string', () => {
       const parameter = 2;
       expect(() => {
         typings._move(parameter);
       }).to.throw('File needs to be a string!');
     });
 
-    it('should throw if the passed parameter is an empty string', () => {
+    it('should throw if the file parameter is an empty string', () => {
       const parameter = '';
       expect(() => {
         typings._move(parameter);
