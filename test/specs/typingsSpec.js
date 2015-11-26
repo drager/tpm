@@ -249,5 +249,21 @@ describe('typings', () => {
 
       mock.verify();
     });
+
+    it('should call mkdirSync with full folder path for folder with one subfolder on last call', () => {
+      const path = '/tmp/typings';
+      sinon.stub(typings, 'folderExists');
+
+      if (fs.mkdirSync.restore !== undefined
+          && typeof fs.mkdirSync.restore === 'function') {
+          fs.mkdirSync.restore();
+      }
+
+      const mock = sinon.stub(fs, 'mkdirSync');
+
+      typings.createDirectories(path);
+
+      expect(mock).to.have.been.calledWith('/tmp/typings').onLastCall;
+    });
   });
 });
