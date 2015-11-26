@@ -161,5 +161,14 @@ describe('typings', () => {
         typings.createDirectories(path);
       }).to.throw('Path needs to be a string!');
     });
+
+    it('should call folderExists thrice for folder with one subfolder', () => {
+      const path = '/tmp/typings';
+      const mock = sinon.stub(typings, 'folderExists').returns(true);
+
+      typings.createDirectories(path);
+
+      expect(mock).to.have.been.calledThrice;
+    });
   });
 });
