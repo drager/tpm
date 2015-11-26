@@ -1,3 +1,5 @@
+'use strict';
+
 const chai = require('chai');
 const sinon = require('sinon');
 const sinonChai = require('sinon-chai');
@@ -12,8 +14,9 @@ const fetcher = require('../../src/fetcher');
 
 describe('fetcher', () => {
   describe('fetch', () => {
+    let mkdirSync;
     beforeEach(() => {
-      sinon.stub(temp, 'mkdirSync');
+      mkdirSync = sinon.stub(temp, 'mkdirSync');
     });
 
     afterEach(() => {
@@ -75,16 +78,18 @@ describe('fetcher', () => {
       nodegit.Clone.clone.restore();
     });
 
-    it('should eventually return the local path', () => {
+    it('should eventually return newly created folder', () => {
       sinon.stub(nodegit.Clone, 'clone').returns(
         new Promise((resolve, reject) => resolve('resolved')));
-      const path = 'tmp';
       const name = 'tpm';
+      const createdFolderPath = '/tmp/tpm-1151026-7172-81duv7';
       const urlToFetch = `https://github.com/drager/${name}`;
+
+      mkdirSync.returns(createdFolderPath)
 
       const result = fetcher.get(urlToFetch);
       nodegit.Clone.clone.restore();
-      return expect(result).to.eventually.equal(`${path}/${name}`);
+      return expect(result).to.eventually.equal(`${createdFolderPath}/${name}`);
     });
 
     it('should return rejected promise when the path is missing to repository', () => {
