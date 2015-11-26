@@ -140,4 +140,12 @@ describe('typings', () => {
       });
     });
   });
+
+  describe('createDirectories', () => {
+    it('should throw if path is not passed', () => {
+      expect(() => {
+        typings.createDirectories();
+      }).to.throw('Path needs to be a string!');
+    });
+  });
 });

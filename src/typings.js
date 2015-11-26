@@ -66,6 +66,9 @@ const typings = {
       exists = false;
     }
     return exists;
+  },
+  createDirectories(path) {
+
   }
 }
 
