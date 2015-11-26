@@ -145,9 +145,10 @@ describe('typings', () => {
       sinon.stub(fs, 'createWriteStream');
       sinon.stub(fs, 'createReadStream').returns({pipe: sinon.spy()});
       sinon.stub(typings, 'folderExists').returns(false);
-      const mock = sinon.mock(fs);
+      sinon.stub(fs, 'mkdirSync');
+      const mock = sinon.mock(typings);
 
-      mock.expects('mkdirSync').once();
+      mock.expects('createDirectories').once();
 
       const result = typings._move(parameter, savePath);
 
