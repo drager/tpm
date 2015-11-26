@@ -119,6 +119,14 @@ describe('typings', () => {
       }).to.throw('savePath needs to be a string!');
     });
 
+    it('should throw if savePath is an empty string', () => {
+      const parameter = 'tpm.d.ts';
+      const savePath = '';
+      expect(() => {
+        typings._move(parameter, savePath);
+      }).to.throw('savePath needs to be a string!');
+    });
+
     it('should call folderExists once', () => {
       const parameter = 'tpm.d.ts';
       const savePath = 'typings_custom';
