@@ -164,7 +164,7 @@ describe('typings', () => {
 
     it('should call folderExists thrice for folder with one subfolder', () => {
       const path = '/tmp/typings';
-      const mock = sinon.stub(typings, 'folderExists').returns(true);
+      const mock = sinon.stub(typings, 'folderExists');
 
       typings.createDirectories(path);
 
