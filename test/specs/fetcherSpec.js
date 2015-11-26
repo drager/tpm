@@ -56,6 +56,12 @@ describe('fetcher', () => {
         }).to.throw('The url to be fetched needs to be a string!');
     });
 
+    it('should throw if the name parameter is undefiend', () => {
+      expect(() => {
+        fetcher.get('https://github.com/drager/tpm');
+      }).to.throw('The name needs to be a string!');
+    });
+
     it('should return a resolved Promise', () => {
       sinon.stub(nodegit.Clone, 'clone').returns(
         new Promise((resolve, reject) => resolve('resolved')));
