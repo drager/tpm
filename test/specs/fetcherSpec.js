@@ -10,6 +10,8 @@ chai.use(sinonChai);
 
 const nodegit = require('nodegit');
 const temp = require('temp');
+const Path = require('path');
+
 const fetcher = require('../../src/fetcher');
 
 describe('fetcher', () => {
@@ -33,6 +35,11 @@ describe('fetcher', () => {
       if (nodegit.Clone.clone.restore !== undefined
           && typeof nodegit.Clone.clone.restore === 'function') {
           nodegit.Clone.clone.restore();
+      }
+
+      if (Path.normalize.restore !== undefined
+          && typeof Path.normalize.restore === 'function') {
+          Path.normalize.restore();
       }
     });
 
@@ -161,6 +168,19 @@ describe('fetcher', () => {
       mock.expects('mkdirSync').once().withArgs('tpm-');
 
       fetcher.get(urlToFetch, 'tpm');
+
+      mock.verify();
+    });
+
+    it('should call normalize once', () => {
+      const urlToFetch = `https://github.com/drager/tpm/`;
+      sinon.stub(nodegit.Clone, 'clone').returns(
+        new Promise((resolve, reject) => resolve('resolved')));
+      const mock = sinon.mock(Path);
+
+      mock.expects('normalize').once();
+
+      const result = fetcher.get(urlToFetch, 'tpm');
 
       mock.verify();
     });
