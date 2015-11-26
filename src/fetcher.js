@@ -13,14 +13,12 @@ const fetcher = {
     let name = url.split('/');
     name = name[name.length - 1];
 
-    const path = `tmp/${name}`;
-
     temp.track();
 
-    temp.mkdirSync('tpm-');
+    const path = temp.mkdirSync('tpm-');
 
     return nodegit.Clone.clone(url, path, null).then((repository) => {
-      return path;
+      return path + '/' + name;
     }).catch((e) => {
       throw e;
     });
