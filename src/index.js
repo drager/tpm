@@ -16,6 +16,9 @@ const tpm = () => {
         if (error) {
           reject(error);
         }
+
+        parser.parse(data);
+
         resolve();
       });
       reject();
