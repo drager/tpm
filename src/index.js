@@ -8,7 +8,7 @@ const fetcher = require('./fetcher');
 const typings = require('./typings');
 
 const tpm = () => {
-  
+  typings.folderExists();
 }
 
 module.exports = tpm;
