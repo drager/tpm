@@ -15,6 +15,7 @@ const Path = require('path');
 
 const tpm = require('../../src/index');
 const typings = require('../../src/typings');
+const parser = require('../../src/parser');
 
 describe('tpm', () => {
   afterEach(() => {
@@ -98,5 +99,18 @@ describe('tpm', () => {
     const promise = tpm();
 
     return expect(promise).to.be.rejected;
+  });
+
+  it('should call parser with the data from readFile', () => {
+    const data = 'typings: ';
+    sinon.stub(typings, 'folderExists').returns(true);
+    sinon.stub(fs, 'readFile').callsArgWith(2, undefined, data);
+    const mock = sinon.mock(parser);
+
+    mock.expects('parse').withArgs(data);
+
+    tpm();
+
+    mock.verify();
   });
 });
