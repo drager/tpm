@@ -9,6 +9,7 @@ const typings = require('./typings');
 
 const tpm = () => {
   typings.folderExists();
+  fs.readFile('');
 }
 
 module.exports = tpm;
