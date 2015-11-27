@@ -9,7 +9,7 @@ const typings = require('./typings');
 
 const tpm = () => {
   if (typings.folderExists()) {
-    fs.readFile('');
+    fs.readFile('./typings.yaml');
   }
 }
 
