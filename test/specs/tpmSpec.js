@@ -17,10 +17,28 @@ const tpm = require('../../src/index');
 const typings = require('../../src/typings');
 
 describe('tpm', () => {
+  afterEach(() => {
+    if (typings.folderExists.restore !== undefined
+        && typeof typings.folderExists.restore === 'function') {
+        typings.folderExists.restore();
+    }
+  });
+
   it('should call folderExists once', () => {
     const mock = sinon.mock(typings);
 
     mock.expects('folderExists').once();
+
+    tpm();
+
+    mock.verify();
+  });
+
+  it('should call fs.readFile once', () => {
+    sinon.stub(typings, 'folderExists');
+    const mock = sinon.mock(fs);
+
+    mock.expects('readFile').once();
 
     tpm();
 
