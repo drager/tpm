@@ -17,7 +17,13 @@ const tpm = () => {
           reject(error);
         }
 
-        parser.parse(data);
+        const parsed = parser.parse(data);
+        const object = parsed.typings;
+        const keys = Object.keys(object);
+
+        const promises = keys.map((key) => {
+          fetcher.get();
+        });
 
         resolve();
       });
