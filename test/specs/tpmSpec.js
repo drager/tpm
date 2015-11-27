@@ -16,6 +16,7 @@ const Path = require('path');
 const tpm = require('../../src/index');
 const typings = require('../../src/typings');
 const parser = require('../../src/parser');
+const fetcher = require('../../src/fetcher');
 
 describe('tpm', () => {
   afterEach(() => {
@@ -112,5 +113,18 @@ describe('tpm', () => {
     tpm();
 
     mock.verify();
+  });
+
+  it('should call fetcher two times if data is two has repositories', () => {
+    const data = `typings:
+                    ramda: donnut/typescript-ramda
+                    cetti: drager/cetti`;
+    sinon.stub(typings, 'folderExists').returns(true);
+    sinon.stub(fs, 'readFile').callsArgWith(2, undefined, data);
+    const mock = sinon.stub(fetcher, 'get');
+
+    tpm();
+
+    expect(mock).to.have.been.calledTwice;
   });
 });
