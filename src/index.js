@@ -11,7 +11,12 @@ const yamlFile = './typings.yaml';
 
 const tpm = () => {
   if (typings.folderExists(yamlFile)) {
-    fs.readFile(yamlFile);
+    return new Promise((resolve, reject) => {
+      fs.readFile(yamlFile, 'utf8', (error, data) => {
+        resolve();
+      });
+      reject();
+    });
   }
 }
 
