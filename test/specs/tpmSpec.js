@@ -60,4 +60,15 @@ describe('tpm', () => {
 
     mock.verify();
   });
+
+  it('should call fs.readFile with ./typings.yaml', () => {
+    sinon.stub(typings, 'folderExists').returns(true);
+    const mock = sinon.mock(fs);
+
+    mock.expects('readFile').withArgs('./typings.yaml');
+
+    tpm();
+
+    mock.verify();
+  });
 });
