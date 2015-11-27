@@ -22,6 +22,11 @@ describe('tpm', () => {
         && typeof typings.folderExists.restore === 'function') {
         typings.folderExists.restore();
     }
+
+    if (fs.readFile.restore !== undefined
+        && typeof fs.readFile.restore === 'function') {
+        fs.readFile.restore();
+    }
   });
 
   it('should call folderExists once', () => {
@@ -39,6 +44,17 @@ describe('tpm', () => {
     const mock = sinon.mock(fs);
 
     mock.expects('readFile').once();
+
+    tpm();
+
+    mock.verify();
+  });
+
+  it('should not call fs.readFile if file does not exist', () => {
+    sinon.stub(typings, 'folderExists').returns(false);
+    const mock = sinon.mock(fs);
+
+    mock.expects('readFile').never();
 
     tpm();
 
