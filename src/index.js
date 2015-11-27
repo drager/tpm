@@ -22,7 +22,9 @@ const tpm = () => {
         const keys = Object.keys(object);
 
         const promises = keys.map((key) => {
-          fetcher.get();
+          let arr = [];
+          let url = `https://github.com/${object[key]}`;
+          fetcher.get(url, key);
         });
 
         resolve();
