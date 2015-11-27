@@ -85,7 +85,7 @@ describe('tpm', () => {
 
   it('should return a resolved Promise', () => {
     sinon.stub(typings, 'folderExists').returns(true);
-    sinon.stub(fs, 'readFile').callsArgWith(2, undefined, 'data');
+    sinon.stub(fs, 'readFile').callsArgWith(2, undefined, 'typings: ');
 
     const promise = tpm();
 
