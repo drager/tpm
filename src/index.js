@@ -7,9 +7,11 @@ const parser = require('./parser');
 const fetcher = require('./fetcher');
 const typings = require('./typings');
 
+const yamlFile = './typings.yaml';
+
 const tpm = () => {
-  if (typings.folderExists('./typings.yaml')) {
-    fs.readFile('./typings.yaml');
+  if (typings.folderExists(yamlFile)) {
+    fs.readFile(yamlFile);
   }
 }
 
