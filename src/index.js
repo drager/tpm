@@ -8,7 +8,7 @@ const fetcher = require('./fetcher');
 const typings = require('./typings');
 
 const tpm = () => {
-  if (typings.folderExists()) {
+  if (typings.folderExists('./typings.yaml')) {
     fs.readFile('./typings.yaml');
   }
 }
