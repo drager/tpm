@@ -40,7 +40,7 @@ describe('tpm', () => {
   });
 
   it('should call fs.readFile once', () => {
-    sinon.stub(typings, 'folderExists');
+    sinon.stub(typings, 'folderExists').returns(true);
     const mock = sinon.mock(fs);
 
     mock.expects('readFile').once();
