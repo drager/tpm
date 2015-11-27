@@ -84,8 +84,7 @@ describe('tpm', () => {
 
   it('should return a resolved Promise', () => {
     sinon.stub(typings, 'folderExists').returns(true);
-    const spy = sinon.spy();
-    sinon.stub(fs, 'readFile').callsArgWith(2, spy);
+    sinon.stub(fs, 'readFile').callsArgWith(2, undefined, 'data');
 
     const promise = tpm();
 
@@ -94,9 +93,7 @@ describe('tpm', () => {
 
   it('should return a rejected Promise if reading failes', () => {
     sinon.stub(typings, 'folderExists').returns(true);
-    const spy = sinon.spy();
-    sinon.stub(fs, 'readFile')
-                   .callsArgWith(2, 'File not found!');
+    sinon.stub(fs, 'readFile').callsArgWith(2, 'File not found!');
 
     const promise = tpm();
 
