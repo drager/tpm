@@ -39,6 +39,16 @@ describe('tpm', () => {
     mock.verify();
   });
 
+  it('should call folderExists with ./typings.yaml', () => {
+    const mock = sinon.mock(typings);
+
+    mock.expects('folderExists').withArgs('./typings.yaml');
+
+    tpm();
+
+    mock.verify();
+  });
+
   it('should call fs.readFile once', () => {
     sinon.stub(typings, 'folderExists').returns(true);
     const mock = sinon.mock(fs);
