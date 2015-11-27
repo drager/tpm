@@ -81,4 +81,15 @@ describe('tpm', () => {
 
     mock.verify();
   });
+
+  it('should return a resolved Promise', () => {
+    sinon.stub(typings, 'folderExists').returns(true);
+    const spy = sinon.spy();
+    sinon.stub(fs, 'readFile')
+                   .callsArgWith(2, spy);
+
+    const promise = tpm();
+
+    return expect(promise).to.be.fulfilled;
+  });
 });
