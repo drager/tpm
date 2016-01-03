@@ -19,7 +19,7 @@ Where ramda will be the name of the typing (a folder that will be created and wh
   the typings will be present in). "donnut" is the Github username
 and "typescript-ramda" is the Github repository name.
 
-`tpm install`
+Finally when the typings.yaml file is done, then just run: `tpm install`.
 
 ## Tests
 `npm run test` will watch on save.  

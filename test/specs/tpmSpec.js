@@ -44,7 +44,7 @@ describe('tpm', () => {
   it('should call folderExists once', () => {
     const mock = sinon.mock(typings);
 
-    mock.expects('folderExists').once();
+    mock.expects('folderExists').returns(true).once();
 
     tpm();
 
@@ -54,7 +54,7 @@ describe('tpm', () => {
   it('should call folderExists with ./typings.yaml', () => {
     const mock = sinon.mock(typings);
 
-    mock.expects('folderExists').withArgs('./typings.yaml');
+    mock.expects('folderExists').returns(true).withArgs('./typings.yaml');
 
     tpm();
 
@@ -78,7 +78,9 @@ describe('tpm', () => {
 
     mock.expects('readFile').never();
 
-    tpm();
+    expect(() => {
+      tpm();
+    }).to.throw(Error);
 
     mock.verify();
   });
