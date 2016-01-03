@@ -15,6 +15,12 @@
   ],
   "author": "Jesper Håkansson <jesper@jesperh.se>",
   "license": "Apache-2.0",
+  "bin": {
+    "tpm": "bin/tpm.js"
+  },
+  "engines": {
+    "node": ">=4.0 <=5.0"
+  },
   "devDependencies": {
     "babel-cli": "^6.1.2",
     "babel-core": "^6.1.2",

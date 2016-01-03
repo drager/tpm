@@ -4,35 +4,43 @@ const fs = require('fs');
 const Path = require('path');
 
 const typings = {
-  find(path, callback) {
+  find(path) {
     if (path === undefined || typeof path !== 'string' ||
         path.length <= 0) {
       throw new Error('The path needs to be a string!');
     }
 
-    if (callback === undefined || typeof callback !== 'function') {
-      throw new Error('Callback needs to be a function!');
-    }
-
-    fs.readdirSync(path).map((name) => {
-      const filePath = `${path}/${name}`;
-      const stat = fs.statSync(filePath);
-      if (stat.isFile()) {
-        if (/\.d\.ts$/.test(filePath)) {
-          callback(filePath);
+    return new Promise((resolve, reject) => {
+      fs.readdir(path, (error, files) => {
+        if (error) {
+          reject(error);
         }
-      } else if (stat.isDirectory()) {
-        typings.find(filePath, callback);
-      }
+        const promises = files.map((name) => {
+          const filePath = `${path}/${name}`;
+          const stat = fs.statSync(filePath);
+          if (stat.isFile()) {
+            if (/\.d\.ts$/.test(filePath)) {
+              return filePath;
+            }
+          } else if (stat.isDirectory()) {
+            return typings.find(filePath);
+          }
+        });
+
+        Promise.all(promises).then((files) => {
+          files = files.reduce((a, b) => a.concat(b), []).filter((a) => a !== undefined);
+          resolve(files);
+        });
+      });
     });
   },
-  move(files) {
+  move(files, savePath) {
     if (files === undefined ||
         Object.prototype.toString.call(files) !== '[object Array]') {
       throw new Error('Files needs to be an array!');
     }
 
-    files.forEach((file) => this._move(file));
+    files.forEach((file) => this._move(file, savePath));
   },
   _move(file, savePath) {
     if (file === undefined || typeof file !== 'string' ||

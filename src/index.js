@@ -8,6 +8,7 @@ const fetcher = require('./fetcher');
 const typings = require('./typings');
 
 const yamlFile = './typings.yaml';
+const savePath = './typings_custom';
 
 const tpm = () => {
   if (typings.folderExists(yamlFile)) {
@@ -22,12 +23,18 @@ const tpm = () => {
         const keys = Object.keys(object);
 
         const promises = keys.map((key) => {
-          let arr = [];
           let url = `https://github.com/${object[key]}`;
-          fetcher.get(url, key);
+          return fetcher.get(url, key).then((file) => {
+            console.info('Fetching:', url)
+            typings.find(file).then((files) => {
+              console.info('Found typings...');
+              typings.move(files, Path.normalize(`${savePath}/${key}`));
+              console.info('Moving typings...');
+              console.info('Done.');
+            });
+          });
         });
-
-        resolve();
+        Promise.all(promises).then(resolve);
       });
       reject();
     });

@@ -20,7 +20,17 @@ const fetcher = require('../../src/fetcher');
 
 describe('tpm', () => {
   afterEach(() => {
+    if (typings.find.restore !== undefined
+        && typeof typings.find.restore === 'function') {
+        typings.find.restore();
+    }
+
     if (typings.folderExists.restore !== undefined
+        && typeof typings.folderExists.restore === 'function') {
+        typings.folderExists.restore();
+    }
+
+    if (typings.find.restore !== undefined
         && typeof typings.folderExists.restore === 'function') {
         typings.folderExists.restore();
     }
@@ -84,15 +94,6 @@ describe('tpm', () => {
     mock.verify();
   });
 
-  it('should return a resolved Promise', () => {
-    sinon.stub(typings, 'folderExists').returns(true);
-    sinon.stub(fs, 'readFile').callsArgWith(2, undefined, 'typings: ramda');
-
-    const promise = tpm();
-
-    return expect(promise).to.be.fulfilled;
-  });
-
   it('should return a rejected Promise if reading failes', () => {
     sinon.stub(typings, 'folderExists').returns(true);
     sinon.stub(fs, 'readFile').callsArgWith(2, 'File not found!');
@@ -113,18 +114,5 @@ describe('tpm', () => {
     tpm();
 
     mock.verify();
-  });
-
-  it('should call fetcher two times if data is two has repositories', () => {
-    const data = `typings:
-                    ramda: donnut/typescript-ramda
-                    cetti: drager/cetti`;
-    sinon.stub(typings, 'folderExists').returns(true);
-    sinon.stub(fs, 'readFile').callsArgWith(2, undefined, data);
-    const mock = sinon.stub(fetcher, 'get');
-
-    tpm();
-
-    expect(mock).to.have.been.calledTwice;
   });
 });

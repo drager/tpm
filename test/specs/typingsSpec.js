@@ -16,9 +16,9 @@ const typings = require('../../src/typings');
 
 describe('typings', () => {
   afterEach(() => {
-    if (fs.readdirSync.restore !== undefined
-        && typeof fs.readdirSync.restore === 'function') {
-        fs.readdirSync.restore();
+    if (fs.readdir.restore !== undefined
+        && typeof fs.readdir.restore === 'function') {
+        fs.readdir.restore();
     }
     if (fs.statSync.restore !== undefined
         && typeof fs.statSync.restore === 'function') {
@@ -50,7 +50,7 @@ describe('typings', () => {
     it('should return path to file when found', () => {
       const path = 'path';
       const name = 'tmp.d.ts';
-      sinon.stub(fs, 'readdirSync').returns([name]);
+      sinon.stub(fs, 'readdir').returns([name]);
       sinon.stub(fs, 'statSync').returns({isFile: () => true});
 
       typings.find(path, (result) => {
@@ -58,33 +58,17 @@ describe('typings', () => {
       });
     });
 
-    it('should call readdirSync once', () => {
+    it('should call readdir once', () => {
       const path = 'tmp/typings';
       sinon.stub(fs, 'statSync').returns({isFile: () => true});
-      const mock = sinon.stub(fs, 'readdirSync').returns([1]);
+      const mock = sinon.stub(fs, 'readdir').returns([1]);
 
       typings.find(path, () => {});
 
       expect(mock).to.have.been.calledOnce;
     });
 
-    it('should verify that the callback parameter is not undefined', () => {
-      const path = 'tmp/typings';
-
-      expect(() => {
-          typings.find(path);
-        }).to.throw('Callback needs to be a function!');
-    });
-
-    it('should verify that the callback parameter is a function', () => {
-      const path = 'tmp/typings';
-
-      expect(() => {
-          typings.find(path, 's');
-        }).to.throw('Callback needs to be a function!');
-    });
-
-    it('should call readdirSync twice if path contains a folder', () => {
+    it('should call readdir twice if path contains a folder', () => {
       const path = 'tmp/typings';
       const statStub = sinon.stub(fs, 'statSync');
       statStub.onCall(0).returns(
@@ -93,25 +77,18 @@ describe('typings', () => {
           isDirectory: () => true
         }
       );
-      statStub.onCall(1).returns(
-        {
-          isFile: () => true,
-          isDirectory: () => false
-        }
-      );
+      const mock = sinon.stub(fs, 'readdir');
 
-      const mock = sinon.stub(fs, 'readdirSync').returns(['typings']);
+      typings.find(path);
 
-      typings.find(path, () => {});
-
-      expect(mock).to.have.been.calledTwice;
+      expect(mock).to.have.been.calledOnce;
     });
 
     it('should not call on callback if path does not contain folders nor files', () => {
       const path = 'tmp/non-file';
       const statStub = sinon.stub(fs, 'statSync');
 
-      sinon.stub(fs, 'readdirSync').returns(['']);
+      sinon.stub(fs, 'readdir').returns(['']);
       statStub.returns(
         {
           isFile: () => false,
@@ -129,7 +106,7 @@ describe('typings', () => {
     it('should return files that only ends with .d.ts', () => {
       const path = 'k/typings';
       const statStub = sinon.stub(fs, 'statSync');
-      sinon.stub(fs, 'readdirSync').returns(['index.js', 'tpm.d.ts', 'tpm.d.ts.js']);
+      sinon.stub(fs, 'readdir').returns(['index.js', 'tpm.d.ts', 'tpm.d.ts.js']);
       statStub.returns(
         {
           isFile: () => true,
