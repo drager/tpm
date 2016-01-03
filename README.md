@@ -1,12 +1,26 @@
 # tpm
+Typings package manager
 
 ## Requirements
-Node 4.2
-Npm 2.14
+Node >= 4.2  
+Npm >= 2.14
 
 ## Installation
-`npm install`
+`npm install typings-package-manager --save`
 
-## Run tests
-`npm run test` will watch on save.
-`npm run test-once` will run the test-suite one time.
+## Usage
+Put a typings.yaml file in the root directory of your project with the format like this:
+```
+typings:
+  ramda: donnut/typescript-ramda
+```
+
+Where ramda will be the name of the typing (a folder that will be created and where
+  the typings will be present in). "donnut" is the Github username
+and "typescript-ramda" is the Github repository name.
+
+`tpm install`
+
+## Tests
+`npm run test` will watch on save.  
+`npm run test-once` will run the test suite one time.

@@ -1,17 +1,26 @@
 {
-  "name": "tpm",
+  "name": "typings-package-manager",
   "version": "0.0.1",
-  "description": "",
+  "description": "Typings package manager",
   "main": "index.js",
   "scripts": {
     "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- test/ --recursive",
     "test": "node_modules/mocha/bin/_mocha test/ --recursive --watch",
     "test-once": "node_modules/mocha/bin/_mocha test/ --recursive"
   },
+  "homepage": "https://github.com/drager/tpm#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drager/tpm.git"
+  },
+  "bugs": {
+    "url": "https://github.com/drager/tpm/issues"
+  },
   "keywords": [
     "TSD",
     "TypeScript",
-    "typings"
+    "typings",
+    "Typings package manager"
   ],
   "author": "Jesper Håkansson <jesper@jesperh.se>",
   "license": "Apache-2.0",
