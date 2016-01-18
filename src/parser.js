@@ -11,10 +11,8 @@ const parser = {
 
     const parsed = yaml.safeLoad(stringToParse);
 
-    const key = Object.keys(parsed).find((k) => k);
-
-    if (key !== 'typings') {
-      throw new BadFormatError('String needs to start with typings.');
+    if (!parsed.hasOwnProperty('typings')) {
+      throw new BadFormatError('String needs to contain typings.');
     }
 
     return parsed;

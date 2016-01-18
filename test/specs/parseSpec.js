@@ -12,8 +12,9 @@ const parser = require('../../src/parser');
 describe('parser', () => {
   describe('parse', () => {
     it('should return an object', () => {
-      const stringToParse = 'typings: ';
-      expect(parser.parse(stringToParse)).to.eql({typings: null});
+      const stringToParse = `typings_custom:
+typings:`;
+      expect(parser.parse(stringToParse)).to.eql({typings_custom: null, typings: null});
     });
 
     it('should throw if the passed parameter is undefiend', () => {
@@ -46,7 +47,7 @@ describe('parser', () => {
 
       expect(() => {
           parser.parse(stringToParse);
-        }).to.throw(BadFormatError, 'String needs to start with typings.');
+        }).to.throw(BadFormatError, 'String needs to contain typings.');
     });
   });
 });

@@ -78,9 +78,7 @@ describe('tpm', () => {
 
     mock.expects('readFile').never();
 
-    expect(() => {
-      tpm();
-    }).to.throw(Error);
+    tpm();
 
     mock.verify();
   });
